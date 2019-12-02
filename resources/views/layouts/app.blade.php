@@ -242,6 +242,30 @@
 			event.preventDefault();
 			$('#searchBar').toggle();
 		});
+        if(navigator.serviceWorker){
+            navigator.serviceWorker.register('./sw.js').then(
+                (registered) => {
+                    if (!navigator.serviceWorker.controller){
+                        return;
+                    }
+                    if (registered.waiting){
+                        this._updateReady(registered.waiting);
+                        return;
+                    }
+                    if (registered.installing){
+                        this._trackInstalling(registered.installing);
+                        return;
+                    }
+                }
+            );
+
+            let refreshing;
+            navigator.serviceWorker.addEventListener('controllerchange', function() {
+                if (refreshing) return;
+                window.location.reload();
+                refreshing = true;
+            });
+		}
 	</script>
 </body>
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\KnowledgeProduct;
 class HomeController extends Controller
 {
     /**
@@ -32,17 +31,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function dashboard()
-    {
+    {   $knowledge = [];
         if(Auth::user()->hasAnyPermission('All')){
-            $knowledge = KnowledgeProduct::All();
+            $knowledge = \App\KnowledgeProduct::all();
 
         }else if(Auth::user()->hasAnyPermission('manage directorate')){
-            $knowledge = Auth::user()->knowledgeProduct;
-        }
-        else{
-            $knowledge = KnowledgeProduct::All()->filter(function($knowledge){
-                return Auth::user()->can('view', $knowledge);
-            });
+            $knowledge = auth()->user()->knowledgeProduct;
         }
         return view('dashboard')->with('knowledge', $knowledge);
     }

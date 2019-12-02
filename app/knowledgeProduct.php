@@ -1,13 +1,10 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class knowledgeProduct extends Model
 {
-    //
-
     protected $fillable = [
         'id', 'title', 'directorate_id', 'source', 'contact', 'keywords', 
         'knowledge_description', 'knowledge_category_id', 'access_level_id',
