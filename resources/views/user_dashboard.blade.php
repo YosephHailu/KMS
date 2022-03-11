@@ -167,7 +167,7 @@
 						<div class="d-flex align-items-center mb-3 mb-sm-0">
 							<div id="campaigns-donut"></div>
 							<div class="ml-3">
-								<h5 class="font-weight-semibold mb-0">{{number_format($knowledge->count())}}</h5>
+								<h5 class="font-weight-semibold mb-0">{{sizeof($knowledge)}}</h5>
 								<span class="badge badge-mark border-success mr-1"></span> <span
 									class="text-muted">{{__('app.dashboard_total_knowledge_product')}}</span>
 							</div>
@@ -198,7 +198,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach (App\KnowledgeCategory::All() as $category)
+								@foreach (App\knowledgeProduct::all() as $category)
 								<tr>
 									<td>
 										<div class="d-flex align-items-center">
@@ -209,10 +209,9 @@
 										</div>
 									</td>
 									<td><span class="text-muted"><i
-												class="icon-book mr-2"></i>{{$category->knowledgeProduct->count()}}</span>
+												class="icon-book mr-2"></i>{{$category->knowledgeProduct ? $category->knowledgeProduct->count() : 0}}</span>
 									</td>
-									<td><span class="text-success-600"><i
-												class="icon-stats-growth2 mr-2"></i>{{number_format($knowledge->count() < 1 ? 0 :$category->knowledgeProduct->count()/$knowledge->count(), 2, '.', '')}}%</span>
+									<td>
 									</td>
 								</tr>
 								@endforeach
@@ -272,7 +271,7 @@
 						<div class="d-flex align-items-center mb-3 mb-sm-0">
 							<div id="campaigns-donut"></div>
 							<div class="ml-3">
-								<h5 class="font-weight-semibold mb-0">{{number_format($knowledge->count())}}</h5>
+								<h5 class="font-weight-semibold mb-0">{{sizeof($knowledge)}}</h5>
 								<span class="badge badge-mark border-success mr-1"></span> <span
 									class="text-muted">{{__('app.dashboard_total_knowledge_product')}}</span>
 							</div>
@@ -414,19 +413,7 @@
 				<div class="tab-content card-body">
 					<div class="tab-pane active fade show" id="messages-tue">
 						<ul class="media-list">
-							@foreach ($knowledge->take(10) as $item)
-							<li class="media">
-								<div class="media-body">
-									<div class="d-flex justify-content-between">
-										<a href="{{url('knowledge/'.$item->id)}}">{{$item->title}}</a>
-									</div>
 
-									<div class="font-size-sm text-muted mt-1">
-										Category : {{$item->knowledgeCategory->category}}</div>
-									{{str_limit($item->knowledge_description, 100, '...')}}
-								</div>
-							</li>
-							@endforeach
 						</ul>
 					</div>
 				</div>

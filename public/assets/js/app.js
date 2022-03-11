@@ -574,8 +574,12 @@ var App = function () {
             App.initCardActions();
             App.initDropdownSubmenu();
             App.initHeaderElementsToggle();
+        },
+        registerServiceWorker: function () {
+
         }
-    }
+    };
+
 }();
 
 
@@ -586,6 +590,7 @@ var App = function () {
 document.addEventListener('DOMContentLoaded', function() {
     App.initBeforeLoad();
     App.initCore();
+    App.registerServiceWorker();
 });
 
 // When page is fully loaded

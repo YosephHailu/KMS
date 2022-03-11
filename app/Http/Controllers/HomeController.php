@@ -35,21 +35,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function dashboard()
-    {
-        
-        $knowledge = Auth::user()->directorate->knowledgeProduct->filter(function ($knowledgeProduct) {
-            return Auth::user()->can('view', $knowledgeProduct);
-        });
+    {   $knowledge = [];
+        if(Auth::user()->hasAnyPermission('All')){
+            $knowledge = \App\KnowledgeProduct::all();
 
-        $projectStatus = ProjectStatus::firstOrCreate([
-            'status' => 'complete',
-        ]);
-
-        $projects = Project::where('project_status_id', '!=', $projectStatus->id)->get()->filter(function ($project) {
-            return Auth::user()->can('view', $project->knowledgeProduct);
-        });
-
-        return view('dashboard')->with('knowledge', $knowledge)->with('projects', $projects);
+        }else if(Auth::user()->hasAnyPermission('manage directorate')){
+            $knowledge = auth()->user()->knowledgeProduct;
+        }
+        return view('dashboard')->with('knowledge', $knowledge);
     }
     
     /**
