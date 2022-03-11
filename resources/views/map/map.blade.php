@@ -2,6 +2,11 @@
 
 @section('content')
 
+@section('breadcrumb')
+
+<span class="breadcrumb-item active">{{__('app.nav_maps')}}</span>
+@endsection
+
 <!-- Main content -->
 <div class="content-wrapper">
 
@@ -10,7 +15,7 @@
 
 		<div class="card p-2">
 			<div class="col-md-4">
-				<a href="{{url('map/create')}}" class="btn bg-blue">Add Map</a>
+				<a href="{{url('map/create')}}" class="btn bg-blue">{{__('knowledge.add_map')}}</a>
 			</div>
 		</div>
 
@@ -19,10 +24,10 @@
 			<table class="table datatable-scroll-y" width="100%" id="myTable">
 				<thead class="bg-blue">
 					<tr>
-						<th>Id</th>
-						<th style="min-width:200px">Title</th>
-						<th>Directorate</th>
-						<th>Map Type</th>
+						<th>{{__('knowledge.id')}}</th>
+						<th style="min-width:200px">{{__('knowledge.title')}}</th>
+						<th>{{__('knowledge.directorate')}}</th>
+						<th>{{__('knowledge.map_type')}}</th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -54,6 +59,7 @@
 								<i class="icon-new-tab"></i>
 							</a>
 						</td>
+						@if (Auth::user()->can('update', $map->knowledgeProduct))
 						<td>
 							<a href="{{url('map/'.$map->id.'/edit')}}">
 								<i class="icon-pen6"></i></a>
@@ -62,6 +68,7 @@
 							<a href="#" onclick="deleteMap({{$map->id}})" class="text-danger"><i
 									class="icon-trash"></i></a>
 						</td>
+						@endif
 					</tr>
 					@endforeach
 				</tbody>

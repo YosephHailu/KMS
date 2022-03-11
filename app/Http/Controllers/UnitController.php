@@ -42,7 +42,7 @@ class UnitController extends Controller
             'name' => 'required|string|max:255',
         ]);
         Unit::create($request->all());
-        return redirect('/configuration')->with('success', 'Language Registered');
+        return redirect('/configuration')->with('success', 'Currency Registered');
     }
 
     /**
@@ -94,6 +94,6 @@ class UnitController extends Controller
             return response()->json('Error can not delete');
             
         $unit->delete();
-        return response()->json(['message'=>'Success']);
+        return response()->json(['message'=>'Successfully Deleted']);
     }
 }

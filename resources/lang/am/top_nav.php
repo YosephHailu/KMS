@@ -14,7 +14,8 @@ return [
     */
 
     'home' => 'Home',
-    'language' => 'ቋንቋ',
+    'language' => 'Language',
     'all knowledge product' => 'All Knowledge Product',
     'dashboard' => 'Dashboard' 
+
 ];

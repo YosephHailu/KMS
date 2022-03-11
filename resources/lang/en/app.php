@@ -13,9 +13,10 @@ return [
     |
     */
 //navigation
-    'app title' => 'OROMIA WATER.',
+    'app title' => 'MOWIE KMS.',
     'nav_home' => 'Home',
     'nav_projects' => 'Projects',
+    'nav_knowledge_products' => 'Knowledge Products',
     'nav_knowledge_management' => 'Knowledge Management',
     'nav_all_knowledge_products' => 'All Knowledge Products',
     'nav_documents' => 'Documents',
@@ -27,13 +28,14 @@ return [
     'nav_contact' => 'Contact',
     'nav_directorate_users' => 'Directorate Users',
     'nav_users' => 'Users',
-    'nav_notice_board' => 'Notice Board',
+    'nav_communication_board' => 'Communication Board',
     'nav_directorate' => 'Directorate',
     'nav_finance_source' => 'Finance Source',
     'nav_slider' => 'Slider',
     'nav_important_links' => 'Important Links',
     'nav_access_control' => 'Access Control',
     'nav_configuration' => 'Configuration',
+    'nav_company' => 'Company Information',
     'nav_system_configuration' => 'System Configuration',
     'nav_directorate_member' => 'Directorate Member',
     'nav_all_users' => 'All Users',
@@ -44,11 +46,11 @@ return [
     'nav_edit_profile' => 'Edit Profile',
     'nav_logout' => 'Log Out',
     'nav_language' => 'Language',
+    'nav_navigation' => 'Navigation',
     'nav_edit_profile' => 'Edit Profile',
     'nav_Approve_knowledge' => 'Approve',
 
-
-//footer
+    //footer
     'footer_mowie' => 'MOWIE',
     'footer_about_the_minister' => 'About The Minister',
     'footer_useful_links' => 'UseFul Links',
@@ -64,14 +66,25 @@ return [
     'dashboard_total_directorate' => 'Total Directorate',
     'dashboard_knowledge_category' => 'Knowledge Category',
     'dashboard_knowledge_product' => 'Knowledge Product',
-    'dashboard_percentage' => 'Percentage',
+    'dashboard_percentage' => 'Directorate Percentage',
     'dashboard_latest_news' => 'Latest News',
     'dashboard_latest_members' => 'Latest Members',
     'dashboard_show_all' => 'Show All',
     'dashboard_latest_documents' => 'Latest Documents',
+    'dashboard_total_attachments' => 'Total Attachments',
+    'dashboard_by' => 'By',
+    'incomplete_project' => 'Incomplete Projects',
 
 //search div
     'example' => 'Search Our Database. Eg : Nile, Gefersa',
     'search' => 'Search',
 
+//global 
+    'add' => 'Add',
+
+    //Other
+    'subject' => 'Subject',
+    'enter_your_message' => 'Enter your message',
+    'header' => 'Header',
+    'attachment' => 'Attachment',
 ];

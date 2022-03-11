@@ -90,6 +90,7 @@ var FullCalendarBasic = function () {
 
     return {
         init: function () {
+
             $(document).ready(function () {
                 events = [];
                 $.ajax({
@@ -101,15 +102,16 @@ var FullCalendarBasic = function () {
                 }).done(function (response) {
                     // console.log(response);
                     $.each(JSON.parse(response), function (index, value) {
-                        // console.log(value);
+                        // console.log(value.created_at);
                         events.push({
                             'title': value.action,
-                            'start': value.date,
+                            'start': value.created_at,
                             'url': base_url + '/' + value.affected_url
                         });
                     });
 
                     _componentFullCalendarBasic(events);
+                    // console.log(response);
 
                 }).fail(function (msg) {
                     console.log(msg);
@@ -127,3 +129,4 @@ var FullCalendarBasic = function () {
 document.addEventListener('DOMContentLoaded', function () {
     FullCalendarBasic.init();
 });
+

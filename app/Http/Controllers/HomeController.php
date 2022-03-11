@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\KnowledgeProduct;
+use App\ProjectStatus;
+use App\Project;
+
 class HomeController extends Controller
 {
     /**
@@ -33,18 +36,20 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        if(Auth::user()->hasAnyPermission('All')){
-            $knowledge = KnowledgeProduct::All();
+        
+        $knowledge = Auth::user()->directorate->knowledgeProduct->filter(function ($knowledgeProduct) {
+            return Auth::user()->can('view', $knowledgeProduct);
+        });
 
-        }else if(Auth::user()->hasAnyPermission('manage directorate')){
-            $knowledge = Auth::user()->knowledgeProduct;
-        }
-        else{
-            $knowledge = KnowledgeProduct::All()->filter(function($knowledge){
-                return Auth::user()->can('view', $knowledge);
-            });
-        }
-        return view('dashboard')->with('knowledge', $knowledge);
+        $projectStatus = ProjectStatus::firstOrCreate([
+            'status' => 'complete',
+        ]);
+
+        $projects = Project::where('project_status_id', '!=', $projectStatus->id)->get()->filter(function ($project) {
+            return Auth::user()->can('view', $project->knowledgeProduct);
+        });
+
+        return view('dashboard')->with('knowledge', $knowledge)->with('projects', $projects);
     }
     
     /**

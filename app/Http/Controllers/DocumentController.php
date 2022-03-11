@@ -64,13 +64,12 @@ class DocumentController extends Controller
             'title' => 'required|string',
             'directorate_id' => 'required|integer',
             'source' => 'required|string',
-            'contact' => 'required|string',
+            'contact' => 'string',
             'keywords' => 'required|string',
             'knowledge_description' => 'required|string',
             'document_category_id' => 'required|integer',
             'access_level_id' => 'required|integer'
         ]);
-
 
         //Authorize User Action
         $this->authorize('create', knowledgeProduct::class);
@@ -107,8 +106,8 @@ class DocumentController extends Controller
         UserLog::create([
             'operation' => 'create',
             'action' => 'Created Knowledge Product',
-            'remark' => 'Registered this "'.$knowledgeProduct->name.'" Document',
-            'affected_url' => '',
+            'remark' => 'Registered this "'.$knowledgeProduct->title.'" Document',
+            'affected_table' => 'documents',
             'affected_table' => 'documents',
             'user_id' => Auth::Id(),
         ]);
@@ -170,6 +169,7 @@ class DocumentController extends Controller
         ]);
 
         $knowledgeProduct = KnowledgeProduct::find($document->knowledgeProduct->id);
+        $knowledgeProduct->approved = false;
         $knowledgeProduct->update($request->All());
 
         $request->request->add(['knowledge_product_id' => $knowledgeProduct->id]);
@@ -197,9 +197,9 @@ class DocumentController extends Controller
         UserLog::create([
             'operation' => 'update',
             'action' => 'Update Knowledge Product',
-            'remark' => 'Updated this "'.$knowledgeProduct->name.'" Document',
+            'remark' => 'Updated this "'.$knowledgeProduct->title.'" Document',
             'affected_url' => '',
-            'affected_table' => 'documents',
+            'affected_url' => 'search/detail/' . $knowledgeProduct->id,
             'user_id' => Auth::Id(),
         ]);
         return redirect('document')->with('success', 'Document Information Updated');

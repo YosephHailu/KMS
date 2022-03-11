@@ -51,6 +51,11 @@ class SliderController extends Controller
             'title' => 'required|string',
             'message' => 'required|string',
             'active_now' => 'required',
+            'attachment' => 'mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:2000'
+        ],[
+            'attachment.required' => 'Please upload photo',
+            'attachment.mimes' => 'Only jpg, jpeg, png, bmp, pgm, jfif, tiff and gif images are allowed',
+            'attachment.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
 
         if ($request->hasFile('attachment')) {
@@ -110,6 +115,11 @@ class SliderController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'message' => 'required|string',
+            'attachment' => 'mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:2000'
+        ],[
+            'attachment.required' => 'Please upload photo',
+            'attachment.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
+            'attachment.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
 
         if ($request->hasFile('attachment')) {
@@ -144,6 +154,6 @@ class SliderController extends Controller
         //
         $slider->delete();
         Storage::delete('public/slider_photos/' . $slider->photo);
-        return response()->json(['message' => 'Success']);
+        return response()->json(['Successfully delete']);
     }
 }

@@ -18,7 +18,7 @@ class CreateDirectoratesTable extends Migration
             $table->string('name');
             $table->string('contact');
             $table->string('manager');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

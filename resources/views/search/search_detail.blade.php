@@ -40,7 +40,6 @@
 								<li class="list-inline-item"><span class="text-blue">{{__('search.views')}} :</span>
 									{{number_format($knowledge->views)}}
 								</li>
-
 							</ul>
 
 							<ul class="list-inline list-inline-dotted  mb-2">
@@ -53,7 +52,7 @@
 								@if(Auth::check() && Auth::user()->can('publish', $knowledge))
 								<li class="list-inline-item text-white"> :
 									<a href="{{url('updateStatus/'.$knowledge->id)}}"
-										class="btn btn-{{$knowledge->approved?"danger":"dark"}}">{{$knowledge->approved?"Unpublish":"Publish"}}</a>
+										class="btn btn-{{$knowledge->approved?"danger":"dark"}}">{{$knowledge->approved?"Undo publish":__('search.publish')}}</a>
 								</li>
 								@endif
 							</ul>
@@ -100,7 +99,9 @@
 									<td class="text-primary">{{__('search.project_finance_source')}}</td>
 									<td class="text-muted">
 										@foreach ($knowledge->project->projectFinance as $projectFinance)
-										<span class="btn p-1 btn-primary"> <h6 class="p-0 m-0">{{$projectFinance->finance->donner_name}}</h6 class="p-0 m-0">
+										<span class="btn p-1 btn-primary">
+											<h6 class="p-0 m-0">{{$projectFinance->finance->donner_name}}</h6
+												class="p-0 m-0">
 											{{number_format($projectFinance->budget)}} {{$projectFinance->unit->name}}
 										</span>
 										@endforeach
@@ -118,7 +119,10 @@
 									<td class="text-primary">{{__('search.project_outcome')}}</td>
 									<td class="text-muted">{{$knowledge->project->outcome}}</td>
 								</tr>
-
+								<tr>
+									<td class="text-primary">{{__('search.project_output')}}</td>
+									<td class="text-muted">{{$knowledge->project->output}}</td>
+								</tr>
 								<tr>
 									<td class="text-primary">{{__('search.project_beneficiary_regions')}}</td>
 									<td class="text-muted">
@@ -145,11 +149,6 @@
 				<div class="card">
 					<div class="card-header header-elements-inline">
 						<h5 class="card-title">Document Information</h5>
-						<div class="header-elements">
-							<div class="list-icons">
-								<a class="list-icons-item" data-action="collapse"></a>
-							</div>
-						</div>
 					</div>
 					<div class="table-responsive">
 						<table class="table table-bordered">
@@ -173,11 +172,6 @@
 				<div class="card">
 					<div class="card-header header-elements-inline">
 						<h5 class="card-title">Photo Information</h5>
-						<div class="header-elements">
-							<div class="list-icons">
-								<a class="list-icons-item" data-action="collapse"></a>
-							</div>
-						</div>
 					</div>
 					<div class="table-responsive">
 						<table class="table table-bordered">
@@ -210,8 +204,8 @@
 								<p>{{$photoAttachment->title}}</p>
 								{{\Carbon\Carbon::parse($knowledge->photo->event_date)->format('D-M-Y')}}
 								<div class="float-right">
-									<a href="{{url('attachment/'.$photoAttachment->id)}}" class="list-icons-item"><i
-											class="icon-download top-0"></i></a>
+									<a href="#" onclick="initializeDownload({{$photoAttachment->id}})"
+										class="list-icons-item"><i class="icon-download top-0"></i></a>
 								</div>
 							</div>
 						</div>
@@ -261,8 +255,8 @@
 								<p>{{$videoAttachment->title}}</p>
 								{{\Carbon\Carbon::parse($knowledge->video->created_date)->format('D-M-Y')}}
 								<div class="float-right">
-									<a href="{{url('attachment/'.$videoAttachment->id)}}" class="list-icons-item"><i
-											class="icon-download top-0"></i></a>
+									<a href="#" onclick="initializeDownload({{$videoAttachment->id}})"
+										class="list-icons-item"><i class="icon-download top-0"></i></a>
 								</div>
 							</div>
 						</div>
@@ -305,7 +299,6 @@
 							{{number_format($knowledge->knowledgeComment->count())}} {{__('search.comments')}}</h6>
 					</div>
 
-
 					<div class="card-body">
 						<ul class="media-list">
 							@foreach ($knowledge->knowledgeComment as $comment)
@@ -320,7 +313,7 @@
 										<a href="#" class="font-weight-semibold">{{$comment->user->name}}</a>
 										<span class="text-muted ml-3">{{$comment->created_at}}</span>
 										@if (Auth::check() && $comment->user->id == Auth::Id())
-										<a class="btn-delete-comment" href="#" id="{{$comment->id}}">
+										<a class="btn-delete-comment ml-2 mt-1" href="#" id="{{$comment->id}}">
 											<i class="icon-trash float-right text-danger"></i></a>
 										@endif
 									</div>
@@ -381,7 +374,8 @@
 				<div class="card card-body p-2 bg-blue m-0">
 					<div class="media">
 						<div class="media-body">
-							<h6 class="media-title font-weight-semibold">{{__('documents')}} / {{__('attachments')}}
+							<h6 class="media-title font-weight-semibold">{{__('search.documents')}} /
+								{{__('search.attachments')}}
 							</h6>
 						</div>
 					</div>
@@ -402,8 +396,8 @@
 											<li class="list-inline-item text-muted">{{$attachment->downloads}}</li>
 											<li class="list-inline-item"><a href="#" class="text-muted">Downloads</a>
 											</li>
-											<li class="list-inline-item"><a
-													href="{{url('attachment/'.$attachment->id)}}">Download</a></li>
+											<li class="list-inline-item"><a href="#"
+													onclick="initializeDownload({{$attachment->id}})">Download</a></li>
 											@can('delete', $knowledge)
 											<li class="list-inline-item"><a
 													href="{{url('attachment/'.$attachment->id)}}"
@@ -433,10 +427,10 @@
 	<div class="modal-dialog zoom" id="animate" ui-class="zoom">
 		<div class="modal-content bg-danger">
 			<div class="modal-header">
-				<h5 class="modal-title">Delete Comment</h5>
+				<h5 class="modal-title">Delete Attachment</h5>
 			</div>
 			<div class="modal-body">
-				<p>Press continue to delete Comment From Conversation</p>
+				<p>Press Continue To Delete Attachment</p>
 			</div>
 
 			<div class="modal-footer" style="clear:both">
@@ -456,8 +450,9 @@
 	<div class="modal-dialog zoom" id="animate" ui-class="zoom">
 		<div class="modal-content bg-primary">
 			<div class="modal-header">
-				<h5 class="modal-title">Delete Comment</h5>
+				<h5 class="modal-title">{{__('search.rate_knowledge')}}</h5>
 			</div>
+
 			{!! Form::open(['action' => ['KnowledgeRatingController@store'], 'method'=>
 			'POST','enctype'=>'multipart/form-data']) !!}
 			<div class="modal-body">
@@ -472,9 +467,7 @@
 						<span class="text-white selected_rate">
 							{{Form::text('rating','5',['class'=>' selected_rate_input col-sm-2'])}}
 							{{Form::hidden('knowledge_product_id',$knowledge->id)}}
-
-							&nbsp; Max - 5 stars
-
+							&nbsp; {{__('search.max_stars', ['counter' => 5])}}
 						</span>
 					</li>
 
@@ -500,7 +493,7 @@
 	<div class="modal-dialog zoom" id="animate" ui-class="zoom">
 		<div class="modal-content bg-primary">
 			<div class="modal-header">
-				<h5 class="modal-title">Delete Comment</h5>
+				<h5 class="modal-title">Rate This Product</h5>
 			</div>
 			{!! Form::open(['action' => ['KnowledgeRatingController@store'], 'method'=>
 			'POST','enctype'=>'multipart/form-data']) !!}
@@ -542,70 +535,95 @@
 
 <script>
 	var commentId = 0;
-		var attachmentId = 0;
-		var token = '{{Session::token()}}';
+	var attachmentId = 0;
+	var token = '{{Session::token()}}';
+	var attachment_url = "{{url('attachment')}}";
 
-		$('.btn-delete-comment').on('click', function(event){
-			event.preventDefault();
-			$('.btn-delete-attachment-confirm').hide();
-			$('.btn-delete-comment-confirm').show();
-			commentId = this.id;
-			$('#modal-confirm-deletion').modal();
-		});
-		
-		$('.btn-delete-comment-confirm').on('click', function(event){
-			event.preventDefault();
-			var url = "{{url('knowledgeComment')}}/"+commentId; 
-			$.ajax({
-				method: 'delete',
-				url: url,
-				data: {_token: token}
-			}).done(function(msg){
-				console.log(msg);
-				location.reload();
-			}).fail(function(msg){
-				console.log(msg);
-			});
-		});
-		
-		$('.btn-delete-attachment').on('click', function(event){
-			event.preventDefault();
-			$('.btn-delete-attachment-confirm').show();
-			$('.btn-delete-comment-confirm').hide();
-			attachmentId = this.id;
-			$('#modal-confirm-deletion').modal();
-		});
-		
-		$('.btn-delete-attachment-confirm').on('click', function(event){
-			event.preventDefault();
-			
-			var url = "{{url('attachment')}}/"+attachmentId; 
-			$.ajax({
-				method: 'delete',
-				url: url,
-				data: {_token: token}
-			}).done(function(msg){
-				console.log(msg);
-				location.reload();
-			}).fail(function(msg){
-				console.log(msg);
-			});
-		});
+	$('.btn-delete-comment').on('click', function(event){
+		event.preventDefault();
+		$('.btn-delete-attachment-confirm').hide();
+		$('.btn-delete-comment-confirm').show();
+		commentId = this.id;
+		$('#modal-confirm-deletion').modal();
+	});
 	
-		function rating(rate){
-			if($('#star'+rate).hasClass('icon-star-full2')){
-				for(loop = 5; loop > rate; loop--){
-					$('#star'+loop).removeClass('icon-star-full2');
-					$('#star'+loop).addClass('icon-star-empty3');
-				}
-			}else{
-				for(loop = 1; loop <= rate; loop++){
-					$('#star'+loop).addClass('icon-star-full2');
-					$('#star'+loop).removeClass('icon-star-empty3');
-				}
+	$('.btn-delete-comment-confirm').on('click', function(event){
+		event.preventDefault();
+		var url = "{{url('knowledgeComment')}}/"+commentId; 
+		$.ajax({
+			method: 'delete',
+			url: url,
+			data: {_token: token}
+		}).done(function(msg){
+			console.log(msg);
+			location.reload();
+		}).fail(function(msg){
+			console.log(msg);
+		});
+	});
+	
+	$('.btn-delete-attachment').on('click', function(event){
+		event.preventDefault();
+		$('.btn-delete-attachment-confirm').show();
+		$('.btn-delete-comment-confirm').hide();
+		attachmentId = this.id;
+		$('#modal-confirm-deletion').modal();
+	});
+	
+	$('.btn-delete-attachment-confirm').on('click', function(event){
+		event.preventDefault();
+		
+		var url = "{{url('attachment')}}/"+attachmentId; 
+		$.ajax({
+			method: 'delete',
+			url: url,
+			data: {_token: token}
+		}).done(function(msg){
+			console.log(msg);
+			location.reload();
+		}).fail(function(msg){
+			console.log(msg);
+		});
+	});
+
+	function rating(rate){
+		if($('#star'+rate).hasClass('icon-star-full2')){
+			for(loop = 5; loop > rate; loop--){
+				$('#star'+loop).removeClass('icon-star-full2');
+				$('#star'+loop).addClass('icon-star-empty3');
 			}
-			$('.selected_rate_input').val(rate);
-			$('.selected_rate').innerHTML(rate);
+		}else{
+			for(loop = 1; loop <= rate; loop++){
+				$('#star'+loop).addClass('icon-star-full2');
+				$('#star'+loop).removeClass('icon-star-empty3');
+			}
 		}
+		$('.selected_rate_input').val(rate);
+		$('.selected_rate').innerHTML(rate);
+	}
+	
+	function initializeDownload(id){
+		event.preventDefault();
+		var url = "{{url('initializeAttachmentDownload')}}/"+id; 
+		$.ajax({
+			method: 'get',
+			url: url,
+			data: {_token: token}
+		}).done(function(msg){
+			if(msg.downloadable){
+				window.location.replace(attachment_url+'/'+id);
+			}else{			
+				new PNotify({
+					text: "File Not Found ",
+					addclass: 'bg-danger border-danger'
+				});
+			}
+		}).fail(function(msg){
+			new PNotify({
+				text: "Sorry We Can't Provide The Service At The Moment ",
+				addclass: 'bg-danger border-danger'
+			});
+		});
+	}
 </script>
 @endsection

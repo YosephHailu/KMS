@@ -23,7 +23,9 @@ class BlogController extends Controller
     public function index()
     {
         //
-        return view('blog.blogs');
+        
+        $blogs = Blog::paginate(20);
+        return view('blog.blogs')->with('blogs', $blogs);;
     }
 
     /**
@@ -50,6 +52,11 @@ class BlogController extends Controller
              'title' => 'required|string',
              'sub_title' => 'required|string',
              'message' => 'required|string',
+             'picture' => 'mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:2000'
+         ],[
+             'picture.required' => 'Please upload photo',
+             'picture.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
+             'picture.max' => 'Sorry! Maximum allowed size for an image is 2MB',
          ]);
          
         if($request->hasFile('picture')){
@@ -84,6 +91,9 @@ class BlogController extends Controller
     {
         //
         $blog = Blog::find($blog);
+
+        $blog->views++;
+        $blog->save();
         return view('blog.blog_detail')->with('blog', $blog);
 
     }
@@ -116,7 +126,13 @@ class BlogController extends Controller
             'title' => 'required|string',
             'sub_title' => 'required|string',
             'message' => 'required|string',
+            'picture' => 'mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:2000'
+        ],[
+            'picture.required' => 'Please upload photo',
+            'picture.mimes' => 'Only jpg, jpeg, png, bmp, pgm, tiff and gif images are allowed',
+            'picture.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
+
        if($request->hasFile('picture')){
            $fileNameWithExt = $request->file('picture')->getClientOriginalName();
            //Get only file name
@@ -149,7 +165,7 @@ class BlogController extends Controller
         //
         $blog = Blog::find($blog);
         $blog->delete();
-        return response()->json('Success');
+        return response()->json('Successfully Deleted');
     }
     
     public function tableData()

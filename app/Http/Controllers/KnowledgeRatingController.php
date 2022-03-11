@@ -46,8 +46,16 @@ class KnowledgeRatingController extends Controller
             'rating' => 'required|integer|max:5|min:1',
         ]);
         
+        $knowledgeRating = KnowledgeRating::where('user_id', Auth::id())
+            ->where('knowledge_product_id', $request->knowledge_product_id)->first();
+
         $request->request->add(['user_id'=>Auth::id()]);
-        KnowledgeRating::create($request->all());
+
+        if($knowledgeRating == null){
+            KnowledgeRating::create($request->all());
+        }else{
+            $knowledgeRating->update($request->all());
+        }
         return redirect()->back()->with('success', 'Ratting Submitted');
     }
 

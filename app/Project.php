@@ -9,7 +9,7 @@ class Project extends Model
     //
     protected $fillable = [
         'id', 'project_category_id', 'directorate_id', 'project_title','contract_no', 'project_description',
-         'outcome', 'starting_date', 'end_date','beneficiaries_region', 'wereda_kebele',
+         'outcome', 'output', 'starting_date', 'end_date','beneficiaries_region', 'wereda_kebele',
          'manager','knowledge_description','access_level_id','user_id', 'knowledge_product_id','project_status_id','created_at','updated_at'
     ];
 

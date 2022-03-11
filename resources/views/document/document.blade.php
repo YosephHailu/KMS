@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 
-<span class="breadcrumb-item active">Document</span>
+<span class="breadcrumb-item active">{{__('app.nav_documents')}}</span>
 @endsection
 
 <!-- Main content -->
@@ -18,7 +18,7 @@
 
 			<div class="row">
 				<div class="col-sm-4">
-					<a href="{{url('document/create')}}" class="btn bg-blue">Add Document</a>
+					<a href="{{url('document/create')}}" class="btn bg-blue">{{__('knowledge.add_document')}}</a>
 				</div>
 			</div>
 		</div>
@@ -28,10 +28,10 @@
 			<table class="table datatable-scroll-y" width="100%" id="myTable">
 				<thead class="bg-blue">
 					<tr>
-						<th>Id</th>
-						<th>Title</th>
-						<th>Directorate</th>
-						<th>Category</th>
+						<th>{{__('knowledge.id')}}</th>
+						<th>{{__('knowledge.title')}}</th>
+						<th>{{__('knowledge.directorate')}}</th>
+						<th>{{__('knowledge.category')}}</th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -48,10 +48,10 @@
 										class="text-default font-weight-semibold">{{$document->knowledgeProduct->title}}</span>
 									<div class="text-muted font-size-sm">
 										<span class="badge badge-mark border-grey-400 mr-1"></span>
-										Source - {{$document->knowledgeProduct->source}}
+										{{__('knowledge.source')}} - {{$document->knowledgeProduct->source}}
 
 										<span class="badge badge-mark border-pink-400 ml-3"></span>
-										Issued Date - {{$document->issued_date}}
+										{{__('knowledge.issued_date')}} - {{$document->issued_date}}
 									</div>
 								</div>
 							</div>
@@ -62,7 +62,7 @@
 							<a href="{{url('knowledge/'.$document->knowledgeProduct->id)}}"><i class="icon-new-tab"></i>
 							</a>
 						</td>
-						@if(Auth::user()->can('all') || $document->knowledgeProduct->user_id == Auth::Id())
+						@if(Auth::user()->can('update', $document->knowledgeProduct))
 
 						<td>
 							<a href="{{url('document/'.$document->id.'/edit')}}">
@@ -73,8 +73,6 @@
 									class="icon-trash"></i></a>
 						</td>
 						@else
-						<td></td>
-						<td></td>
 						@endif
 					</tr>
 					@endforeach

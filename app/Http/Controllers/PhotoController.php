@@ -68,7 +68,12 @@ class PhotoController extends Controller
             'keywords' => 'required|string',
             'knowledge_description' => 'required|string',
             'access_level_id' => 'required|integer',
-            'event_date' => 'date'
+            'event_date' => 'date',
+            'attachment.*' => 'required|mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:10000'
+        ],[
+            'attachment.*.required' => 'Please upload an image only',
+            'attachment.*.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
+            'attachment.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
 
         $knowledgeCategory = KnowledgeCategory::firstOrCreate(['category' => 'Photo']);
@@ -168,11 +173,17 @@ class PhotoController extends Controller
             'keywords' => 'required|string',
             'knowledge_description' => 'required|string',
             'access_level_id' => 'required|integer',
-            'event_date' => 'date'
+            'event_date' => 'date',
+            'attachment.*' => 'required|mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:10000'
+        ],[
+            'attachment.*.required' => 'Please upload photo',
+            'attachment.*.mimes' => 'Only jpg, jpeg, png, bmp, pgm, jfif, tiff, gif images are allowed',
+            'attachment.*.max' => 'Sorry! Maximum allowed size for an image is 10MB',
         ]);
 
 
         $knowledgeProduct = KnowledgeProduct::find($photo->knowledgeProduct->id);
+        $knowledgeProduct->approved = false;
         $knowledgeProduct->update($request->All());
 
         $request->request->add(['knowledge_product_id' => $knowledgeProduct->id]);
@@ -255,9 +266,15 @@ class PhotoController extends Controller
             return $photo->knowledgeProduct->source;
         })->addColumn('edit', function ($photo) {
             $url = url('photo/' . $photo->id . '/edit');
-            return '<a href="' . $url . '"><i class="icon-pen6"></i></a>';
+            if (Auth::user()->can('update', $photo->knowledgeProduct))
+                return '<a href="' . $url . '"><i class="icon-pen6"></i></a>';
+            else
+                return '';
         })->addColumn('delete', function ($photo) {
-            return '<a href="" onclick="deletePhoto(' . $photo->id . ')" id=' . $photo->id . ' class="text-danger"><i class="icon-trash"></i></a>';
+            if (Auth::user()->can('delete', $photo->knowledgeProduct))
+                return '<a href="" onclick="deletePhoto(' . $photo->id . ')" id=' . $photo->id . ' class="text-danger"><i class="icon-trash"></i></a>';
+            else
+                return '';
         })->addColumn('open', function ($photo) {
             return '<a href="' . url('knowledge/' . $photo->knowledgeProduct->id) . '"><i class="icon-new-tab"></i> </a>';
         })->rawColumns(['delete', 'edit', 'open', 'directorate'])->make(true);

@@ -3,8 +3,8 @@
 @section('content')
 
 @section('breadcrumb')
-
-<span class="breadcrumb-item active">Notice Board</span>
+<a href="{{url('board')}}" class="breadcrumb-item">{{__('app.nav_communication_board')}}</a>
+<span class="breadcrumb-item active">{{$noticeBoard->header}}</span>
 @endsection
 
 <!-- Main content -->
@@ -15,7 +15,8 @@
 
 		<div class="card">
 			<div class="card-header bg-blue">
-				<h5 class="card-title">Notice Board</h5>
+				<h5 class="card-title">
+					{{__('app.nav_communication_board')}}</h5>
 			</div>
 
 			<div class="card-body">

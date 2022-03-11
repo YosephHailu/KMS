@@ -26,7 +26,10 @@ class MapController extends Controller
     public function index()
     {
         //
-        $maps = Map::All();
+        $maps = Map::All()->filter(function ($map) {
+            return Auth::user()->can('view', $map->knowledgeProduct);
+        });
+
         return view('map.map')->with('maps', $maps);
     }
 
@@ -143,6 +146,7 @@ class MapController extends Controller
 
 
         $knowledgeProduct = KnowledgeProduct::find($map->knowledgeProduct->id);
+        $knowledgeProduct->approved = false;
         $knowledgeProduct->update($request->All());
 
         $request->request->add(['knowledge_product_id' => $knowledgeProduct->id]);

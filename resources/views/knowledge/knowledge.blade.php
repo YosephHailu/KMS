@@ -5,7 +5,7 @@
 
 @section('breadcrumb')
 	
-	<span class="breadcrumb-item active">Knowledge Products</span>	
+	<span class="breadcrumb-item active">{{__('app.knowledge_products')}}</span>	
 @endsection
 
 	<!-- Main content -->
@@ -22,20 +22,20 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="btn-group justify-content-center">
-									<a href="#" class="btn bg-blue dropdown-toggle" data-toggle="dropdown">Add New </a>
+									<a href="#" class="btn bg-blue dropdown-toggle" data-toggle="dropdown">{{__('knowledge.add_new')}} </a>
 	
 									<div class="dropdown-menu">
 										<div class="dropdown-submenu">
-											<a href="#" class="dropdown-item dropdown-toggle">Documents</a>
+											<a href="#" class="dropdown-item dropdown-toggle">{{__('app.nav_documents')}}</a>
 											<div class="dropdown-menu">
 												@foreach (App\DocumentCategory::All() as $category)
 													<a href="{{url('document/create')}}" class="dropdown-item">{{$category->category}}</a>													
 												@endforeach
 											</div>
 										</div>
-										<a href="{{url('video/create')}}" class="dropdown-item">Video</a>
-										<a href="{{url('photo/create')}}" class="dropdown-item">Photo</a>
-										<a href="#" class="dropdown-item">Map</a>
+										<a href="{{url('video/create')}}" class="dropdown-item">{{__('app.nav_videos')}}</a>
+										<a href="{{url('photo/create')}}" class="dropdown-item">{{__('app.nav_photos')}}</a>
+										<a href="{{url('map/create')}}" class="dropdown-item">{{__('app.nav_maps')}}</a>
 										
 									</div>
 								</div>
@@ -51,12 +51,12 @@
 				<table class="table datatable-scroll-y " width="100%" id="myTable">
 					<thead class="bg-blue">
 						<tr>
-							<th>Id</th>
-							<th>Title</th>
-							<th>Directorate</th>
-							<th>Category</th>
-							<th>Source</th>
-							<th>Contact</th>
+							<th>{{__('knowledge.id')}}</th>
+							<th>{{__('knowledge.title')}}</th>
+							<th>{{__('knowledge.directorate')}}</th>
+							<th>{{__('knowledge.category')}}</th>
+							<th>{{__('knowledge.source')}}</th>
+							<th>{{__('knowledge.contact')}}</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -119,7 +119,9 @@
 				{ data: 'contact', name: 'contact' },
 				{ data: 'open', name: 'open', orderable: false, searchable: false },
 				{ data: 'delete', name: 'delete', orderable: false, searchable: false },
-			]
+			],
+			lengthMenu: [ 25, 50, 75, 100, 500, 1000, 2000 ],
+			displayLength: 50,
 		});
 		
 		function loadTable(){

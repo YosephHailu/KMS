@@ -6,7 +6,7 @@ min-height: 150px">
         <a href="#" class="sidebar-mobile-secondary-toggle">
             <i class="icon-arrow-left8"></i>
         </a>
-        <span class="font-weight-semibold">Main sidebar</span>
+        <span class="font-weight-semibold">{{__('app.nav_navigation')}}</span>
         <a href="#" class="sidebar-mobile-expand">
             <i class="icon-screen-full"></i>
             <i class="icon-screen-normal"></i>
@@ -25,7 +25,7 @@ min-height: 150px">
             <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
                 <div class="d-flex">
                     <div class="breadcrumb">
-                        <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+                        <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> {{__('app.nav_home')}}</a>
                         @yield('breadcrumb')
                     </div>
 
@@ -34,7 +34,7 @@ min-height: 150px">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 <!-- Main -->
                 <li class="nav-item-header mt-0">
-                    <div class="text-uppercase font-size-xs line-height-xs">Main</div> <i class="icon-menu"
+                    <div class="text-uppercase font-size-xs line-height-xs">{{__('app.nav_navigation')}}</div> <i class="icon-menu"
                         title="Main"></i>
                 </li>
                 <li class="nav-item">
@@ -93,17 +93,18 @@ min-height: 150px">
                         <li class="nav-item"><a href="{{url('map')}}"
                                 class="nav-link {{ (Request::is('map*') ? 'active' : '') }}">{{__('app.nav_maps')}}</a>
                         </li>
-
+                        @if(Auth::user()->hasAnyPermission(['all', 'manage directorate']))
                         <li class="nav-item bg-danger"><a href="{{url('approve')}}"
                                 class="nav-link {{ (Request::is('approve*') ? 'active' : '') }}">{{__('app.nav_Approve_knowledge')}}</a>
                         </li>
+                        @endif
                     </ul>
                 </li>
                 @endif
 
                 <li class="nav-item"><a href="{{url('board')}}"
                         class="nav-link {{ (Request::is('board*') ? 'active' : '') }}"><i
-                            class="icon-notification2"></i> <span>{{__('app.nav_notice_board')}}</span></a></li>
+                            class="icon-notification2"></i> <span>{{__('app.nav_communication_board')}}</span></a></li>
                 @if(Auth::user()->hasAnyPermission('all', 'manage directorate'))
                 <li class="nav-item"><a href="{{url('directorateUser')}}"
                         class="nav-link {{ (Request::is('users*') ? 'active' : '') }}"><i class="icon-people"></i>
@@ -153,6 +154,9 @@ min-height: 150px">
                 <li class="nav-item"><a href="{{url('configuration')}}"
                         class="nav-link {{ (Request::is('configuration*') ? 'active' : '') }}"><i class="icon-gear"></i>
                         <span>{{__('app.nav_configuration')}}</span></a></li>
+                <li class="nav-item"><a href="{{url('company')}}"
+                    class="nav-link {{ (Request::is('company*') ? 'active' : '') }}"><i class="icon-office"></i>
+                    <span>{{__('app.nav_company')}}</span></a></li>
                 <!-- /layout -->
                 @endif
             </ul>

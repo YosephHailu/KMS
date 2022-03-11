@@ -8,7 +8,7 @@
         <li class="nav-item text-center">
             <a href="{{url('search/public/'.'Document?q='.$_GET['q'])}}"
                 class="nav-link {{Request::is('search/public/Document')?'active':''}}">
-                <i class="icon-image2 mr-2"></i> {{__('search.documents')}}</a></li>
+                <i class="icon-book mr-2"></i> {{__('search.documents')}}</a></li>
         <li class="nav-item text-center">
             <a href="{{url('search/public/'.'Photo?q='.$_GET['q'])}}"
                 class="nav-link {{Request::is('search/public/Photo')?'active':''}}">
@@ -20,11 +20,11 @@
         <li class="nav-item text-center">
             <a href="{{url('search/public/'.'Project?q='.$_GET['q'])}}"
                 class="nav-link {{Request::is('search/public/Project')?'active':''}}">
-                <i class="icon-file-play mr-2"></i> {{__('search.project')}}</a></li>
+                <i class="icon-city mr-2"></i> {{__('search.project')}}</a></li>
         <li class="nav-item text-center">
             <a href="{{url('search/public/'.'Map?q='.$_GET['q'])}}"
                 class="nav-link {{Request::is('search/public/Map')?'active':''}}">
-                <i class="icon-file-play mr-2"></i> {{__('search.map')}}</a></li>
+                <i class="icon-map mr-2"></i> {{__('search.map')}}</a></li>
     </ul>
 </div>
 <!-- /tabs -->

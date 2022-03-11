@@ -2,17 +2,6 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
-    |
-    */
-
     //Nav
     'all' => 'All',
     'documents' => 'Documents',
@@ -27,8 +16,10 @@ return [
     'search' => 'Search',
 
     //Content
-    'about' => 'About',
-    'result' => 'result',
+    'about_result' => 'About :counter Results',
+    'posted_as' => 'Posted as',
+    'views' => 'Views',
+    'ratting' => 'ratting',
 
     //detail
     'attachments' => 'Attachments',
@@ -41,11 +32,14 @@ return [
     'comment_on_topic' => 'Comment On The Topic',
     'tags' => 'Tags',
     'downloads' => 'Downloads',
+    'max_stars' => 'Max - :counter stars',
+    'rate_knowledge' => 'Rate this knowledge',
 
     //content
     'video_information' => 'Video Information',
     'video_goal' => 'Goal',
     'video_created_date' => 'Created Date',
+    
     //
     'project_information' => 'Project Information',
     'project_status' => 'Project Status',
@@ -54,26 +48,33 @@ return [
     'project_manager' => 'Manager',
     'project_finance_source' => 'Finance Source',
     'project_description' => 'Description',
-    'project_outcome' => 'Project Out Come',
+    'project_outcome' => 'Project Outcome',
+    'project_output' => 'Project Output',
     'project_beneficiary_regions' => 'Beneficiary regions',
     'project_beneficiary_weredas' => 'Beneficiary Weredas',
     'project_status' => 'Project Status',
     'project_status' => 'Project Status',
     'project_status' => 'Project Status',
     'project_status' => 'Project Status',
+    
     //
     'document_information' => 'Document Information',
     'document_type'=>'Document Type',
     'document_issued_date'=>'Issued Date',
+    
     //
     'photo_information' => 'Photo Information',
     'event_date' => 'Event Date',
     'photographer' => 'Photographer',
+    
     //
     'map_information' => 'Map Information',
     'map_type' => 'Map Type',
     'video_created_date' => 'Created Date',
+    
     //
-
+    'contact' => 'Contact',
+    'publish' => 'Publish',
+    'ratting' => 'Ratting',
     
 ];

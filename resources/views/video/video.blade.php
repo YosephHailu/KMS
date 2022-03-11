@@ -17,7 +17,7 @@
 		@can('create', App\KnowledgeProduct::class)
 		<div class="card p-2">
 			<div class="col-md-4">
-				<a href="{{url('video/create')}}" class="btn bg-blue">Add Video</a>
+				<a href="{{url('video/create')}}" class="btn bg-blue">{{__('knowledge.add_video')}}</a>
 			</div>
 		</div>
 		@endcan
@@ -44,7 +44,7 @@
 								<h6 class="font-weight-semibold mr-2"><a
 										href="{{url('knowledge/'.$video->knowledgeProduct->id)}}">{{$video->knowledgeProduct->title}}</a>
 									<small class="badge label-red"> {{$video->knowledgeProduct->attachments->count()}}
-										More Attachments</small></h6>
+											{{__('knowledge.more_attachments')}}</small></h6>
 								<span>{{str_limit($video->knowledgeProduct->knowledge_description, 150, "...")}}</span>
 							</div>
 						</div>

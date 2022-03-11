@@ -8,61 +8,11 @@
 	<div class="content">
 		<div class="card mt-3">
 			<div class="card-body">
-				<div class="mt-1 mb-4">
-					<h3 class="font-weight-semibold">About The System</h3>
-					<p>Knowledge management is the process of creating, sharing, using and managing the knowledge and
-						information of an organization. It refers to a multidisciplinary approach to achieving
-						organizational objectives by making the best use of knowledge.</p>
-					<p>The Knowledge Portal of OWERDB will present updated resources and documentation.
-						It provides experts the resources to review policies, guidelines, previous reports and case
-						stories from various projects in the organization. They are typically used to showcase the work
-						of an organisation and provide signposts to documents, articles and toolkits. The portal is
-						updated with the support of the knowledge management unit and by assigned staff from each
-						directorate.</p>
-					<p>The resources may be produced by the various experts and directorates within OWERDB and at all
-						government levels: zones and woredas. Learning and research documents by other WASH stakeholders
-						will also be included.</p>
-				</div>
-
-				<h3>Each thematic area can be navigated to from the homepage and contains the following information:
-				</h3>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="mb-4">
-							<dl>
-								<dt class="font-size-sm font-weight-bold text-uppercase p-1">
-									<i class="icon-checkmark3 text-blue mr-2"></i>
-									Key documents that relate to the area.
-								</dt>
-
-								<dt class="font-size-sm font-weight-bold text-uppercase p-1">
-									<i class="icon-checkmark3 text-blue mr-2"></i>
-									Resources and documents that relate to the theme. These can be further filtered
-									based on the theme sub categories, language and document type options.
-								</dt>
-
-							</dl>
-						</div>
-					</div>
-
-					<div class="col-sm-6">
-						<div class="mb-4">
-							<dl>
-
-								<dt class="font-size-sm font-weight-bold text-uppercase ">
-									<i class="icon-checkmark3 text-blue mr-2"></i>
-									A brief description of the thematic area
-								</dt>
-								<dt class="font-size-sm font-weight-bold text-uppercase p-1">
-									<i class="icon-checkmark3 text-blue mr-2"></i>
-									Key people to contact,
-								</dt>
-
-							</dl>
-						</div>
-					</div>
-				</div>
-				<h3>Vision</h3>
+			
+			<h3 class='mt-1'>About us</h3>
+				The Ministry of Water, Irrigation and Energy of Ethiopia is a federal organization established to undertake the management of water resources, water supply and sanitation, large and medium scale irrigation and Energy. The Ministry is a regulatory body which involves the planning, development and management of resources, preparation and implementation of guidelines, strategies, polices, programs, and sectoral laws and regulations. It also, conducts study and research activities, provides technical support to regional water and energy bureaus and especial support to four emerging regions (Gambella, Benishangul-Gumuth, Afar and Somali). In the case of transboundary water resources and regional developments pertinent to the sector, it engages in the negotiation and the signing of international agreements 
+				<br>
+				<h3 class="mt-1">Vision</h3>
 				Ethiopia will be a model of excellence in water resources development utilization and renewable energy
 				hub in East Africa by 2015.
 
@@ -71,8 +21,8 @@
 				of its water and energy resources in a sustainable manner, through provision of quality and equitable
 				supplies in the entire country and by contributing significantly to the food security and foreign
 				currency earning.
-				<h6 class="font-weight-semibold">Available directorates</h6>
 			</div>
+			<h6 class="font-weight-semibold">Available directorates</h6>
 
 			<div class="table-responsive">
 				<table class="table table-striped">

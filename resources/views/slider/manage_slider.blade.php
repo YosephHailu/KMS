@@ -4,7 +4,6 @@
 @section('content')
 
 @section('breadcrumb')
-	
 	<a href="{{url('slider')}}" class="breadcrumb-item"> Slider</a>
 	<span class="breadcrumb-item active">{{$new?'Add Slider': 'Edit Slider'}}</span>	
 @endsection
@@ -69,7 +68,7 @@
                 @if (!$new)
                     {{Form::hidden('_method','PUT')}}
                 @endif
-                    {{Form::submit($new?'Save':'Edit',['class'=>'btn btn-primary float-right'])}}
+                    {{Form::submit($new?'Save':'Update',['class'=>'btn btn-primary float-right'])}}
         </div>
         {!! Form::close() !!}
 

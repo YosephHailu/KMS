@@ -17,12 +17,12 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'login' => 'Login',
 
-    'sign_in' => 'ግባ',
-    'login_to_account' => 'ወደ አካውንትክ ግባ',
-    'enter_credentials' => 'መርጃክን አስገባ',
-    'remember_me' => 'አስታውሰኝ',
-    'forgot_password' => 'ፓስዎርድ ርሳው',
-    'cancel' => 'አቋርጥ',
+    'sign_in' => 'Sign In',
+    'login_to_account' => 'Login to your account',
+    'enter_credentials' => 'Enter Credentials',
+    'remember_me' => 'Remember Me',
+    'forgot_password' => 'Forgot Password',
+    'cancel' => 'Cancel',
     'read_our_term' => 'By continuing, you\'re confirming that you\'ve read our',
     'terms_conditions' => 'Terms & Conditions',
 

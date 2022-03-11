@@ -41,6 +41,30 @@
 					</div>
 				</div>
 
+				@isset($accessLevel)
+
+				<div class="mx-2">
+					{!! Form::open(['action' => ['AccessLevelController@update',$accessLevel->id], 'method'=> 'POST']) !!}
+
+					<div class="form-group row col-md-12 col-lg-6 float-left">
+						<div class="input-group">
+							{{Form::text('level', $accessLevel->level,['class'=>'form-control', 'placeholder' => 'Access Level Name (E.g) High Level, Medium Level , Low Level'])}}
+						</div>
+					</div>
+
+					<div class="form-group row col-md-12 col-lg-6 float-left">
+						<div class="input-group">
+							{{Form::text('level_number', $accessLevel->level_number,['class'=>'form-control', 'placeholder' => 'Access Level Number (N.B) This is used To Rank Document'])}}
+							<span class="input-group-append">
+									{{Form::hidden('_method','PUT')}}
+								{{Form::submit('Update Access Level',['class'=>'btn btn-success float-right'])}}
+							</span>
+						</div>
+					</div>
+					{!! Form::close() !!}
+				</div>
+				@else
+
 				<div class="mx-2">
 					{!! Form::open(['action' => 'AccessLevelController@store', 'method'=> 'POST',
 					'enctype'=>'multipart/form-data']) !!}
@@ -61,6 +85,7 @@
 					</div>
 					{!! Form::close() !!}
 				</div>
+				@endisset
 
 				<h6 class="card-title float-right mt-1">
 					<a class="collapsed text-white list-icons-item" data-action="collapse" data-toggle="collapse"
@@ -78,9 +103,14 @@
 								<span>{{$access_level->level_number}}</span>
 								<div class="header-elements">
 									<div class="list-icons">
+										<a href="{{url('accessLevel/'.$access_level->id.'/edit')}}"
+											class="list-icons-item btn">
+											<i class="icon-pen6 text-white"></i>
+										</a>
+
 										<a class="list-icons-item btn btn-delete-access_level"
 											id="{{$access_level->id}}">
-											<i class="icon-trash text-white"></i>
+											<i class="icon-trash text-danger"></i>
 										</a>
 									</div>
 								</div>
@@ -200,7 +230,7 @@
 				<h4 class="modal-title">Remove Permission</h4>
 			</div>
 			<div class="modal-body">
-				<p>Users With This Role Assigned TO Will Be Affected</p>
+				<p>Users With This Role Assigned To Will Be Affected</p>
 
 			</div>
 

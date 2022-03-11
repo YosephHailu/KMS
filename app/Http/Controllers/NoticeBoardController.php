@@ -7,6 +7,7 @@ use App\NoticeBoard;
 use App\UserNoticeBoard;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class NoticeBoardController extends Controller
@@ -70,7 +71,15 @@ class NoticeBoardController extends Controller
 
         $request->request->add(['user_id' => Auth::id()]);
         $request->request->add(['attachment' => $fileNameToStore]);
-        NoticeBoard::create($request->all());
+        $noticeBoard = NoticeBoard::create($request->all());
+
+        UserNoticeBoard::updateOrCreate([
+            'seen' => true,
+            'user_id' => Auth::id(),
+            'notice_board_id' => $noticeBoard->id,
+        ],[
+            'seen_at' => Carbon::now(),
+        ]);
 
         //return ->back();
         return redirect('board')->with('success', 'NoticeBoard Information Registered'); 
@@ -87,7 +96,7 @@ class NoticeBoardController extends Controller
         //
         $noticeBoard = NoticeBoard::find($noticeBoard);
         if(Storage::exists('Attachment/Noticeboard/'.$noticeBoard->attachment))
-            return Storage::download('Attachment/Noticeboard/'.$noticeBoard->attachment);
+            return Storage::download('Attachment/Noticeboard/'.$noticeBoard->attachment, Str::ascii($noticeBoard->attachment));
         return redirect()->back()->with('error', 'File Not Found');
     }
 
@@ -138,11 +147,12 @@ class NoticeBoardController extends Controller
     public function detail(NoticeBoard $noticeBoard)
     {
         //        
-        UserNoticeBoard::create([
+        UserNoticeBoard::updateOrCreate([
             'seen' => true,
-            'seen_at' => Carbon::now(),
             'user_id' => Auth::id(),
             'notice_board_id' => $noticeBoard->id,
+        ],[
+            'seen_at' => Carbon::now(),
         ]);
 
         return view('board.board_detail')->with('noticeBoard', $noticeBoard);

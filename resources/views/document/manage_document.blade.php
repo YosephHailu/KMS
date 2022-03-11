@@ -123,7 +123,7 @@
 
                             <div class="col-lg-4 col-md-6" id="file">
                                 <div class="form-group form-group-feedback form-group-feedback-right">
-                                    {{Form::file('attachment[]',['class'=>'form-control '])}}
+                                    {{Form::file('attachment[]',['class'=>'form-control ', "multiple" => "multiple"])}}
                                     <a href="#" onclick="addForm()" class="btn-add-file">
                                         <div class="form-control-feedback pt-1">
                                             <i class="icon-add"></i>
@@ -143,7 +143,7 @@
         @if (!$new)
         {{Form::hidden('_method','PUT')}}
         @endif
-        {{Form::submit($new?'Save':'Edit',['class'=>'btn btn-primary float-right'])}}
+        {{Form::submit($new?'Save':'Update',['class'=>'btn btn-primary float-right'])}}
     </div>
     {!! Form::close() !!}
 </div>

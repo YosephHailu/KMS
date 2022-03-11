@@ -65,11 +65,11 @@ class ProjectController extends Controller
             'outcome' => 'required|string',
             'starting_date' => 'required|date',
             'end_date' => 'required|date',
+            'source' => 'required|string',
             'finance_id.*' => 'required',
             'beneficiaries_region' => 'required|string',
-            'wereda_kebele' => 'required|string',
             'manager' => 'required|string',
-            'budget/*' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'budget.*' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'knowledge_description' => 'required|string',
             'access_level_id' => 'required|integer',
             'project_status_id' => 'required|integer',
@@ -86,7 +86,7 @@ class ProjectController extends Controller
         $knowledgeProduct = KnowledgeProduct::create([
             'title' => $request->project_title,
             'directorate_id' => $request->directorate_id,
-            'source' => 'Unknown',
+            'source' => $request->source,
             'approved' => false,
             'contact' => $request->manager,
             'keywords' => $request->product_title . ',' . $request->wereda_kebele.','.$request->keywords,
@@ -191,9 +191,9 @@ class ProjectController extends Controller
             'outcome' => 'required|string',
             'starting_date' => 'required|date',
             'end_date' => 'required|date',
+            'source' => 'required|string',
             'finance_id.*' => 'required',
             'beneficiaries_region' => 'required|string',
-            'wereda_kebele' => 'required|string',
             'manager' => 'required|string',
             'budget.*' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'knowledge_description' => 'required|string',
@@ -210,8 +210,9 @@ class ProjectController extends Controller
         $knowledgeProduct->update([
             'title' => $request->project_title,
             'directorate_id' => $request->directorate_id,
-            'source' => 'Unknown',
+            'source' => $request->source,
             'contact' => $request->manager,
+            'approved' => false,
             'keywords' => $request->product_title . ',' . $request->wereda_kebele.','.$request->keywords,
             'knowledge_description' => $request->knowledge_description,
             'access_level_id' => $request->access_level_id,
@@ -307,9 +308,15 @@ class ProjectController extends Controller
             return $project->directorate->name;
         })->addColumn('edit', function ($project) {
             $url = url('projects/' . $project->id . '/edit');
-            return '<a href="' . $url . '"><i class="icon-pen6"></i></a>';
+            if (Auth::user()->can('update', $project->knowledgeProduct))
+                return '<a href="' . $url . '"><i class="icon-pen6"></i></a>';
+            else
+                return '';
         })->addColumn('delete', function ($project) {
-            return '<a href="" onclick="deleteProject(' . $project->id . ')" id=' . $project->id . ' class="text-danger"><i class="icon-trash"></i></a>';
+            if (Auth::user()->can('delete', $project->knowledgeProduct))
+                return '<a href="" onclick="deleteProject(' . $project->id . ')" id=' . $project->id . ' class="text-danger"><i class="icon-trash"></i></a>';
+            else
+                return '';
         })->addColumn('open', function ($project) {
             return '<a href="' . url('knowledge/' . $project->knowledgeProduct->id) . '"><i class="icon-new-tab"></i> </a>';
         })->addColumn('category', function ($project) {

@@ -38,6 +38,9 @@ class KnowledgeCommentController extends Controller
     public function store(Request $request)
     {
         //
+         $this->validate($request, [
+            'message' => 'required|string',
+        ]);
         $request->request->add(['user_id'=>Auth::id()]);
         knowledgeComment::create($request->all());
         return redirect()->back()->with('success', 'Comment Submitted Registered');

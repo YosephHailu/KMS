@@ -22,7 +22,7 @@ class DirectorateController extends Controller
     public function index()
     {
         //
-        $directorates = Directorate::All();
+        $directorates = Directorate::paginate(10);
         return view('directorate.directorates')->with('directorates', $directorates);
     }
 
@@ -34,6 +34,7 @@ class DirectorateController extends Controller
     public function create()
     {
         //        
+        $this->authorize('create', Directorate::class);
         return view('directorate.manage_directorate')->with('new', true);
     }
 
@@ -46,6 +47,8 @@ class DirectorateController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', Directorate::class);
+
         $this->validate($request, [
             'name' => 'required|string',
             'description' => 'required|string',
@@ -66,6 +69,7 @@ class DirectorateController extends Controller
     public function show(Directorate $directorate)
     {
         //
+        $this->authorize('view', Directorate::class);
     }
 
     /**
@@ -77,6 +81,8 @@ class DirectorateController extends Controller
     public function edit(Directorate $directorate)
     {
         //
+        $this->authorize('update', $directorate);
+
         return view('directorate.manage_directorate')->with('new', false)->with('directorate', $directorate);
     }
 
@@ -90,6 +96,8 @@ class DirectorateController extends Controller
     public function update(Request $request, Directorate $directorate)
     {
         //
+        $this->authorize('update', $directorate);
+
         $this->validate($request, [
             'name' => 'required|string',
             'description' => 'required|string',
@@ -98,6 +106,7 @@ class DirectorateController extends Controller
         ]);
 
         $directorate->update($request->all());
+        return redirect('directorate')->with('success', 'Directorate Information Updated');
     }
 
     /**
@@ -108,12 +117,13 @@ class DirectorateController extends Controller
      */
     public function destroy(Directorate $directorate)
     {
-        //
-        //Check if there is any knowledge posted by directorate
+        $this->authorize('view', $directorate);
+
+        //Check if there is any knowledge posted 
         if($directorate->knowledgeProduct->count() > 0)
-            return response()->json('Error can not delete');
+            return response()->json('Error can not delete --// Please remove users and knowledge products first');
 
         $directorate->delete();
-        return response()->json('Success');
+        return response()->json('Successfully Deleted');
     }
 }

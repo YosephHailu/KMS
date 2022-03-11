@@ -1,11 +1,15 @@
 
+@php 
+$company = App\Company::first();
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
 
 @section('breadcrumb')
 	
-	<span class="breadcrumb-item active">News</span>	
+	<span class="breadcrumb-item active">Knowledge Audit</span>	
 @endsection
 
 	<!-- Main content -->
@@ -13,11 +17,10 @@
 
 		<!-- Content area -->
 		<div class="content">
-
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<img src="{{asset('owme.png')}}" class="flo" height="75px" width="75px" alt="">
-						<h5 class="card-title">OROMIA WASH KNOWLEDGE MANAGEMENT</h5>
+						<img src="{{asset('storage\company\\'.($company != null ? $company->logo : "nofile.jpg"))}}" class="flo" height="75px" width="75px" alt="">
+						<h5 class="card-title ml-2">{{$company != null ? $company->name : "Organization Name"}}</h5>
 						<div class="header-elements">
 							<div class="list-icons">
 								<p class="pull-right text-muted"><strong>Date :</strong> {{\Carbon\Carbon::Now()->format('D-M-Y h:m:i')}}</p>								
@@ -29,27 +32,27 @@
 							<div class="col-sm-4 float-left">
 									<h5><b>Knowledge Products</b></h5>
 									<address>
-									  Total Product: 15<br>
-									  This Month Products: 15<br>
-														Total Downloads: 2<br>
+											Total Product: {{App\knowledgeProduct::count()}}<br>
 									</address>
 								  </div>
 								  <!-- /.col -->
 								   <div class="col-sm-4 float-left">
 									<h5><b>Projects</b></h5>
 									<address>
-									  Total Products: 10<br>
-									  This Month Projects: 8<br>
-									  Total Downloads: 15<br>
+											Total Project: {{App\Project::count()}}<br>
 									</address>
 								  </div>
 								  <!-- /.col -->
 								  <div class="col-sm-4 float-left">
 									<h5><b>Statistics</b></h5>
 									<address>
-									  Total Views: 261<br>
-														Total Contributor: 8<br>
-									  Total Downloads: 261<br>
+											Total Views: {{number_format(App\knowledgeProduct::all()->sum('views'))}}<br>
+											Total Contributor: {{App\User::All()->filter(function($user){
+												return $user->hasPermissionTo('manage knowledge');
+											})->count()}}<br>
+										Total Downloads: {{
+											number_format(App\Attachment::all()->sum('downloads'))
+										}}<br>
 								  </address></div>
 						{{-- Example of <code>large</code> table sizing using <code>.table-lg</code> class added to the <code>.table</code>. All table rows have <code>53px</code> height in REM units. --}}
 					</div>
@@ -83,7 +86,7 @@
 					</div>
 					<div class="row m-2">
 							<div class="col-sm-4 mt-3 float-right text-center">
-								<img src="{{asset('owme.png')}}" style="height: 150px;" alt="">
+								<img src="{{asset('storage\company\\'.($company != null ? $company->logo : "nofile.jpg"))}}" style="height: 150px;" alt="">
 							</div>
 							<!-- /.col -->
 							<div class="col-sm-8 float-left">
@@ -96,19 +99,19 @@
 										</tr>
 									<tr>
 									<th style="width:50%">Directorates:</th>
-									<td>4</td>
+									<td>{{App\Directorate::All()->count()}}</td>
 								  </tr>
 								  <tr>
 									<th>Projects</th>
-									<td>10</td>
+									<td>{{App\Project::count()}}</td>
 								  </tr>
 								  <tr>
-									<th>Knowledge Products</th>
-									<td>15</td>
+									<th>Other Knowledge Products</th>
+									<td>{{App\knowledgeProduct::count() - App\Project::count()}}</td>
 								  </tr>
 								  <tr>
-									<th>Total:</th>
-									<td>25</td>
+									<th>Total Knowledge Products:</th>
+									<td>{{App\knowledgeProduct::count()}}</td>
 								  </tr>
 								</tbody></table>
 							  </div>

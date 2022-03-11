@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 
-<a href="{{url('users')}}" class="breadcrumb-item"> Users</a>
+<a href="{{url('users')}}" class="breadcrumb-item"> {{__('app.nav_directorate_users')}}</a>
 <span class="breadcrumb-item active">{{$user->name}}</span>
 @endsection
 
@@ -18,17 +18,19 @@
 			<div class="col-xl-8">
 				<div class="card">
 					<div class="card-body text-center">
-						<div class="card-img-actions d-inline-block mb-3">
+						<div class="card-img-actions d-inline-block mb-3 col-3">
 							<img class="img-fluid rounded-circle" src="{{asset('storage\user_photos\\'.$user->photo)}}"
 								width="170" height="170" alt="">
 						</div>
-						<div class=" float-left clear-both">
+
+						<div class=" float-left clear-both col-4">
 							<h6 class="font-weight-semibold mt-1 mb-0 text-blue">directorate</h6>
 							<span class="d-block text-muted">{{$user->directorate->name}}</span>
 							<h6 class="font-weight-semibold mt-1 mb-0 text-blue">Account Status</h6>
 							<span class="d-block text-muted">{{$user->userStatus->status}}</span>
 						</div>
-						<div class="float-right">
+
+						<div class="float-right col-4">
 							<h6 class="font-weight-semibold mt-1 mb-0 text-blue">User Name</h6>
 							<span class="d-block text-muted">{{$user->username}}</span>
 							<h6 class="font-weight-semibold mt-1 mb-0 text-blue">Email Address</h6>
@@ -37,9 +39,8 @@
 							<span class="d-block text-muted">{{$user->phone}}</span>
 						</div>
 
-
-						<h6 class="font-weight-semibold mt-1 mb-0 text-blue">{{$user->name}}</h6>
-						<span class="d-block text-muted">{{$user->job_title}}</span>
+						<h6 class="font-weight-semibold mt-1 mb-0 text-blue text-center">{{$user->name}}</h6>
+						<span class="text-muted text-center">{{$user->job_title}}</span>
 					</div>
 					<!-- Basic view -->
 					<div class="card m-t-2 col-md-12">
@@ -244,13 +245,9 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('global_assets/js/demo_pages/form_select2.js')}}"></script>
-{{-- <script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js')}}"></script> --}}
-
 <script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 <script src="{{ asset('global_assets/js/plugins/ui/moment/moment.min.js')}}"></script>
 <script src="{{ asset('global_assets/js/plugins/ui/fullcalendar/fullcalendar.min.js')}}"></script>
-<script src="{{ asset('js/fullcalendar_user_activity.js')}}"></script>
 
 <script>
 	var serviceID = 0;
@@ -259,8 +256,133 @@
 	var base_url = "{{url('')}}"; 
 	var userId = 0;
 	var _role = "";
-	
-    function deleteRole(id, role){
+
+
+// Setup module
+// ------------------------------
+
+var FullCalendarBasic = function () {
+
+
+//
+// Setup module components
+//
+
+// Basic calendar
+var _componentFullCalendarBasic = function (events) {
+	if (!$().fullCalendar) {
+		console.warn('Warning - fullcalendar.min.js is not loaded.');
+		return;
+	}
+
+	// Initialization
+	// ------------------------------
+
+	// Basic view
+	$('.fullcalendar-basic').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,basicWeek,basicDay'
+		},
+		editable: true,
+		events: events,
+		eventLimit: true,
+		isRTL: $('html').attr('dir') == 'rtl' ? true : false
+	});
+
+	// Agenda view
+	$('.fullcalendar-agenda').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		defaultDate: '2014-11-12',
+		defaultView: 'agendaWeek',
+		editable: true,
+		businessHours: true,
+		events: events,
+		isRTL: $('html').attr('dir') == 'rtl' ? true : false
+	});
+
+	// List view
+	$('.fullcalendar-list').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'listDay,listWeek,listMonth'
+		},
+		views: {
+			listDay: {
+				buttonText: 'Day'
+			},
+			listWeek: {
+				buttonText: 'Week'
+			},
+			listMonth: {
+				buttonText: 'Month'
+			}
+		},
+		defaultView: 'listMonth',
+		defaultDate: '2014-11-12',
+		navLinks: true, // can click day/week names to navigate views
+		editable: true,
+		eventLimit: true, // allow "more" link when too many events
+		events: events,
+		isRTL: $('html').attr('dir') == 'rtl' ? true : false
+	});
+};
+
+
+//
+// Return objects assigned to module
+//
+
+return {
+	init: function () {
+
+		$(document).ready(function () {
+			events = [];
+			$.ajax({
+				method: 'get',
+				url: url,
+				data: {
+					_token: token
+				}
+			}).done(function (response) {
+				// console.log(response);
+				$.each(JSON.parse(response), function (index, value) {
+					// console.log(value);
+					events.push({
+						'title': value.action,
+						'start': value.created_at,
+						'url': base_url + '/' + value.affected_url
+					});
+				});
+				// console.log(response);
+
+				_componentFullCalendarBasic(events);
+			}).fail(function (msg) {
+				console.log(msg);
+			});
+		});
+
+	}
+}
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function () {
+FullCalendarBasic.init();
+});
+
+
+
+	function deleteRole(id, role){
 		userId = id;
 		_role = role;
         // alert(id);
@@ -282,4 +404,6 @@
         });
     });
 </script>
+{{-- <script src="{{ asset('js/fullcalendar_user_activity.js')}}"></script> --}}
+
 @endsection

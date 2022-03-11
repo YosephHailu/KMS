@@ -16,6 +16,7 @@ return [
     'app title' => 'OROMIA WATER.',
     'nav_home' => 'Home',
     'nav_projects' => 'Projects',
+    'nav_knowledge_products' => 'Knowledge Products',
     'nav_knowledge_management' => 'Knowledge Management',
     'nav_all_knowledge_products' => 'All Knowledge Products',
     'nav_documents' => 'Documents',
@@ -27,7 +28,7 @@ return [
     'nav_contact' => 'Contact',
     'nav_directorate_users' => 'Directorate Users',
     'nav_users' => 'Users',
-    'nav_notice_board' => 'Notice Board',
+    'nav_communication_board' => 'Communication Board',
     'nav_directorate' => 'Directorate',
     'nav_finance_source' => 'Finance Source',
     'nav_slider' => 'Slider',
@@ -44,14 +45,16 @@ return [
     'nav_edit_profile' => 'Edit Profile',
     'nav_logout' => 'Log Out',
     'nav_language' => 'Language',
+    'nav_navigation' => 'Navigation',
     'nav_edit_profile' => 'Edit Profile',
+    'nav_Approve_knowledge' => 'Approve',
 
-//footer
+    //footer
     'footer_mowie' => 'MOWIE',
     'footer_about_the_minister' => 'About The Minister',
     'footer_useful_links' => 'UseFul Links',
     'footer_contact' => 'Contact',
-    'footer_about_mowie' => 'Ethiopian Electric Utility. Ethiopian Electric Power. Ethiopian Energy Authority. Water Development Fund Office. Water Technology Institute.',
+    'footer_about_mowie' => 'Minister of water, Irrigation and Energy',
     
 //dashboard
     'dashboard_users' => 'Users',
@@ -67,9 +70,19 @@ return [
     'dashboard_latest_members' => 'Latest Members',
     'dashboard_show_all' => 'Show All',
     'dashboard_latest_documents' => 'Latest Documents',
+    'dashboard_total_attachments' => 'Total Attachments',
+    'dashboard_by' => 'By',
 
 //search div
     'example' => 'Search Our Database. Eg : Nile, Gefersa',
     'search' => 'Search',
 
+//global 
+    'add' => 'Add',
+
+    //Other
+    'subject' => 'Subject',
+    'enter_your_message' => 'Enter your message',
+    'header' => 'Header',
+    'attachment' => 'Attachment',
 ];

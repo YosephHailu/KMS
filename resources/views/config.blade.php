@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-
+{{--
         <div class="card float-left col-md-6 col-lg-4 p-0">
             <div class="card-header bg-transparent header-elements-inline">
                 <h6 class="card-title font-weight-semibold">
@@ -191,7 +191,7 @@
                 </div>
             </div>
         </div>
-
+--}}
         <div class="card float-left col-md-6 col-lg-4 p-0">
             <div class="card-header bg-transparent header-elements-inline">
                 <h6 class="card-title font-weight-semibold">
@@ -281,8 +281,7 @@
                 @foreach (App\Unit::All() as $unit)
                 <a href="#" class="list-group-item list-group-item-action">
                     {{$unit->name}}
-                    <span class="btn btn-delete-unit" id="{{$unit->id}}"> <i
-                            class="icon-trash	text-danger"></i></span>
+                    <span class="btn btn-delete-unit" id="{{$unit->id}}"> <i class="icon-trash	text-danger"></i></span>
                 </a>
                 @endforeach
             </div>
@@ -291,9 +290,9 @@
                     <div class="col-md-12">
                         {!! Form::open(['action' => 'UnitController@store', 'method'=> 'POST']) !!}
 
-                        <label class="col-form-label">Add Unit</label>
+                        <label class="col-form-label">Add Currency</label>
                         <div class="input-group mt-2">
-                            {{Form::text('name', '',['class'=>'form-control', 'placeholder' => 'Enter Unit Name'])}}
+                            {{Form::text('name', '',['class'=>'form-control', 'placeholder' => 'Enter Currency Name'])}}
                             <span class="input-group-append">
                                 {{Form::submit('Save',['class'=>'btn btn-white float-right'])}}
                             </span>
@@ -304,10 +303,8 @@
             </div>
         </div>
         <!-- /dashboard content -->
-
     </div>
     <!-- /content area -->
-
 </div>
 <!-- /main content -->
 
@@ -569,7 +566,6 @@
     $('.btn-delete-projectCategory-confirm').on('click', function(event){
         event.preventDefault();
         var url = "{{url('projectCategory')}}/"+projectCategoryId; 
-        alert(url);
         $.ajax({
             method: 'delete',
             url: url,

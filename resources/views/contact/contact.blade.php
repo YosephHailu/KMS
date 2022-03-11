@@ -32,8 +32,6 @@
 						<th>Manager</th>
 						<th>Phone</th>
 						<th>Fax</th>
-						<th>Remark</th>
-						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -96,8 +94,6 @@
 				{ data: 'manager', name: 'manager' },
 				{ data: 'phone', name: 'phone' },
 				{ data: 'fax', name: 'fax' },
-				{ data: 'remark', name: 'remark' },
-				{ data: 'open', name: 'open', orderable: false, searchable: false },
 				{ data: 'edit', name: 'edit', orderable: false, searchable: false },
 				{ data: 'delete', name: 'delete', orderable: false, searchable: false },
 				

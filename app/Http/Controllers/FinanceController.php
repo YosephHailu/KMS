@@ -11,7 +11,7 @@ class FinanceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(['permission:all'])->except(['contacts']);        
+        $this->middleware(['permission:all']);        
     }
 
     /**
@@ -22,7 +22,6 @@ class FinanceController extends Controller
     public function index()
     {
         //
-
         $finances = Finance::All();
         return view('finance.finances')->with('finances', $finances);
     }
@@ -35,6 +34,7 @@ class FinanceController extends Controller
     public function create()
     {
         //
+        $this->authorize('create', Finance::class);
 
         return view('finance.manage_finance')->with('new', true);
     }
@@ -48,6 +48,8 @@ class FinanceController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create', Finance::class);
+
         $this->validate($request, [
             'donner_name' => 'required|string',
             'credit' => 'required|string',
@@ -68,6 +70,7 @@ class FinanceController extends Controller
     public function show(Finance $finance)
     {
         //
+        $this->authorize('view', $finance);
     }
 
     /**
@@ -79,6 +82,8 @@ class FinanceController extends Controller
     public function edit(Finance $finance)
     {
         //
+        $this->authorize('update', $finance);
+
         return view('finance.manage_finance')->with('new', false)->with('finance', $finance);
     }
 
@@ -92,6 +97,8 @@ class FinanceController extends Controller
     public function update(Request $request, Finance $finance)
     {
         //
+        $this->authorize('update', $finance);
+
         $this->validate($request, [
             'donner_name' => 'required|string',
             'credit' => 'required|string',
@@ -111,12 +118,14 @@ class FinanceController extends Controller
      */
     public function destroy(Finance $finance)
     {        
+        $this->authorize('delete', $finance);
+
         //Check if there is any knowledge financed by \App\finance
 
         if($finance->projectFinance->count() > 0)
             return response()->json('Error can not delete');
 
         $finance->delete();
-        return response()->json('Success');
+        return response()->json('Successfully delete');
     }
 }

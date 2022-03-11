@@ -20,24 +20,23 @@ class KnowledgeProductPolicy
     public function view(User $user, KnowledgeProduct $knowledgeProduct)
     {
         //
-
         if ($user->hasAnyPermission('all') || $user->id == $knowledgeProduct->user_id){
             return true;
         }
         
-        // if($user->directorate->id != $knowledgeProduct->directorate->id)
-        //     return false;
+        if ($knowledgeProduct->accessLevel->level_number <= 1 && $knowledgeProduct->approved){
+            return true;
+        }
 
         if ($user->hasAnyPermission('manage directorate')){
-            if($user->id == $knowledgeProduct->user_id)
+            if($user->directorate->id == $knowledgeProduct->directorate->id)
                 return true;
-            return $user->directorate->id == $knowledgeProduct->directorate->id;
         }
 
         if(!$knowledgeProduct->approved)
             return false;
 
-        if($knowledgeProduct->accessLevel->level_number < 1)
+        if($knowledgeProduct->accessLevel->level_number <= 0)
             return true;
 
         if($knowledgeProduct->accessLevel->level_number <= $user->accessLevel->level_number)
@@ -96,7 +95,7 @@ class KnowledgeProductPolicy
         if ($user->hasAnyPermission('all')){
             return true;
         }
-                
+        
         if ($user->hasAnyPermission('manage directorate')){
             if($user->id == $knowledgeProduct->user_id)
                 return true;

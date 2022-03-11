@@ -91,6 +91,12 @@ class KnowledgeCategoryController extends Controller
     public function destroy(knowledgeCategory $knowledgeCategory)
     {
         //
+        
+        $knowledgeCategory = KnowledgeCategory::find($id);
+        
+        if($knowledgeCategory->knowledgeProduct->count() > 0)
+            return response()->json('Error can not delete');
+            
         $knowledgeCategory->delete();
         return response()->json('Success');
     }

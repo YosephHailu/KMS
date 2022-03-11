@@ -4,7 +4,6 @@
 
 @endsection
 @section('content')
-
 @section('breadcrumb')
 
 <a href="{{url('projects')}}" class="breadcrumb-item"> Project</a>
@@ -91,6 +90,16 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-text text-muted">Source / Author * </label>
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        {{Form::text('source', $new?'':$project->knowledgeProduct->source,['class'=>'form-control','placeholder'=>''])}}
+                        <div class="form-control-feedback">
+                            <i class="icon-text-width"></i>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-lg-4 col-md-6">
                     <label class="form-text text-muted">Beneficiaries Region * </label>
@@ -101,7 +110,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <label class="form-text text-muted">Wereda/Kebele * </label>
+                    <label class="form-text text-muted">Wereda/Kebele </label>
                     <div class="form-group form-group-feedback form-group-feedback-left">
                         {{Form::text('wereda_kebele', $new?'':$project->wereda_kebele,
                                     ['class'=>'tokenfield form-control','data-fouc','placeholder'=>'Add Wereda'])}}
@@ -162,10 +171,20 @@
                     </div>
                 </div>
 
-                @if($new || $project->projectFinance->count() < 1) <fieldset style="border:1px solid black"
-                    class="col-md-6 col-lg-4">
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-text text-muted">Output </label>
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        {{Form::textarea('output', $new?'':$project->output,['class'=>'form-control','placeholder'=>''])}}
+                        <div class="form-control-feedback">
+                            <i class="icon-text-width"></i>
+                        </div>
+                    </div>
+                </div>
+
+                @if($new || $project->projectFinance->count() < 1) 
+                <fieldset style="border:1px solid black" class="finance_form col-md-6 col-lg-4">
                     <div class="col-12">
-                        <label class="form-text text-muted">Finance Source
+                        <label class="form-text text-muted">Finance Source *
                             <i class="float-right icon-add text-blue" onclick="addFinance()"></i></label>
                         <div class="form-group">
                             {{Form::select('finance_id[]', App\Finance::pluck('donner_name','id'), null, 
@@ -174,7 +193,7 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="form-text text-muted">Unit</label>
+                        <label class="form-text text-muted">Currency * </label>
                         <div class="form-group">
                             {{Form::select('unit_id[]', App\Unit::pluck('name','id'), null, 
                                         ['class'=>'form-control select-search'])}}
@@ -232,7 +251,7 @@
 
                     <div class="col-lg-4 col-md-6" id="file">
                         <div class="form-group form-group-feedback form-group-feedback-right">
-                            {{Form::file('attachment[]',['class'=>'form-control '])}}
+                            {{Form::file('attachment[]',['class'=>'form-control', "multiple" => "multiple"])}}
                             <a href="#" onclick="addForm()" class="btn-add-file">
                                 <div class="form-control-feedback pt-1">
                                     <i class="icon-add"></i>
@@ -248,7 +267,7 @@
         @if (!$new)
         {{Form::hidden('_method','PUT')}}
         @endif
-        {{Form::submit($new?'Save':'Edit',['class'=>'btn btn-primary float-right'])}}
+        {{Form::submit($new?'Save':'Update',['class'=>'btn btn-primary float-right'])}}
     </div>
     {!! Form::close() !!}
 </div>

@@ -37,19 +37,6 @@ class SearchController extends Controller
 
         $knowledgeCategory = KnowledgeCategory::firstOrCreate(['category'=> $category]);
 
-        if($category=='Photo'){
-            $category = 'search_public_image';
-        }elseif($category=='Video'){
-            $category = 'search_public_video';
-        }elseif($category=='Document'){
-            $category = 'search_public_document';
-        }elseif($category=='Map'){
-            $category = 'search_public_map';
-        }elseif($category=='Project'){
-            $category = 'search_public_project';
-        }else{
-            $category = 'search_public';
-        }
         if(Auth::check()){
             $knowledgeProductsId = KnowledgeProduct::all()->filter(function($knowledge){
                 return Auth::user()->can('view', $knowledge);
@@ -67,12 +54,34 @@ class SearchController extends Controller
                 ->where('approved', true)->orderByDesc('created_at')->paginate(20);
         }
     
-        return view('search.'.$category)
+        return view('search.search')
             ->with('knowledge', $knowledge)->with('q', $_GET['q']);
     }
     
     protected function orderBy($column, $order){
         
+        if(Auth::check()){
+            $knowledgeProductsId = KnowledgeProduct::all()->filter(function($knowledge){
+                return Auth::user()->can('view', $knowledge);
+            })->pluck('id');
+            $knowledge = KnowledgeProduct::whereIn('id', $knowledgeProductsId)
+                ->where('keywords','like','%'.$_GET['q'].'%')
+                ->orderBy($column, $order)->paginate(20)
+                ->paginate(20);
+        }else{                        
+            $knowledgeProductsId = KnowledgeProduct::all()->filter(function($knowledge){
+                return $knowledge->accessLevel->level_number < 1;
+            })->pluck('id');
+
+           $knowledge = KnowledgeProduct::whereIn('id', $knowledgeProductsId)
+                ->where('keywords','like','%'.$_GET['q'].'%')
+                ->orderBy($column, $order)->paginate(20)
+                ->where('approved', true)->orderByDesc('created_at')->paginate(20);
+        }
+
+        return view('search.search_public')
+            ->with('knowledge', $knowledge)->with('q', $_GET['q']);
+
         $knowledge = KmProduct::where('access_level','low level')
             ->where('keywords','like','%'.$_GET['q'].'%')
             ->orderBy($column, $order)->paginate(20);

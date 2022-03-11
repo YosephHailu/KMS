@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 
-<span class="breadcrumb-item active">Notice Board</span>
+<span class="breadcrumb-item active">{{__('app.nav_communication_board')}}</span>
 @endsection
 
 <!-- Main content -->
@@ -15,7 +15,7 @@
 
 		<div class="card">
 			<div class="card-header bg-blue">
-				<h5 class="card-title">Notice Board</h5>
+				<h5 class="card-title">{{__('app.nav_communication_board')}}</h5>
 			</div>
 
 			<div class="card-body">
@@ -61,7 +61,9 @@
 
 							<div class="media-body">
 								<div class="media-chat-item">
-									<p class="h5">{{$noticeBoard->header}}</p>
+									<p class="h5">
+										<a href="{{url('board/'.$noticeBoard->id.'/detail')}}">
+											{{$noticeBoard->header}}</a></p>
 									{{$noticeBoard->message}}
 								</div>
 								<div class="font-size-sm text-muted mt-2">
@@ -80,12 +82,13 @@
 				{!! Form::open(['action' => ['NoticeBoardController@store'], 'method'=>
 				'POST','enctype'=>'multipart/form-data']) !!}
 				<div class="form-group">
-					{{Form::label('header', 'Subject *')}}
+					{{Form::label('header', __('app.subject'))}}
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-check"></i></span>
-						{{Form::text('header',null, ['class'=>'form-control','placeholder'=>'Header'])}}
+						{{Form::text('header',null, ['class'=>'form-control','placeholder'=> __('app.nav_communication_board')])}}
 					</div>
 				</div>
+				
 				<textarea name="message" class="form-control mb-3" rows="3" cols="1"
 					placeholder="Enter your message..."></textarea>
 

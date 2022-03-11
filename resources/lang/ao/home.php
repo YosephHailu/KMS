@@ -23,7 +23,7 @@ return [
     'nav_language' => 'Language',
     'nav_about_us' => 'About Us',
     'nav_origin_history' => 'Orign & History',
-    'nav_mandate' => 'Mandate',
+    'nav_help' => 'Help',
     'nav_contact' => 'Contact',
 //body
     'about_system' => 'About The System',

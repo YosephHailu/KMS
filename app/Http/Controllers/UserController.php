@@ -65,8 +65,14 @@ class UserController extends Controller
             'phone' => 'required|string',
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'access_level_id' => 'required|integer',
-            'user_status_id' => 'required|integer'
+            'user_status_id' => 'required|integer',
+            'picture' => 'mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:2000'
+        ],[
+            'picture.required' => 'Please upload photo',
+            'picture.mimes' => 'Only jpg, jpeg, png, bmp, pgm, jfif, tiff and gif images are allowed',
+            'picture.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
+        
         $this->authorize('create', User::class);
 
         if ($request->hasFile('picture')) {
@@ -152,6 +158,7 @@ class UserController extends Controller
             if (!Hash::check($request->old_password, Auth::user()->password))
                 return redirect()->back()->with('error', "Old Password Incorrect");
         }
+
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -210,9 +217,21 @@ class UserController extends Controller
             'email' => 'required|string',
             'username' => 'required|string',
             'phone' => 'required|string',
-            'access_level_id' => 'required|integer',
-            'user_status_id' => 'required|integer'
+            'user_status_id' => 'required|integer',
+            'picture' => 'mimes:jpg,jpeg,png,bmp,pgm,jfif,tiff,gif|max:2000'
+        ],[
+            'picture.required' => 'Please upload photo',
+            'picture.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
+            'picture.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
+
+        
+        if($user->username != $request->username){
+            
+            $this->validate($request, [
+                'username' => 'required|string|unique:users',
+            ]);
+        }
         //
         $this->authorize('update', $user);
 
@@ -229,6 +248,7 @@ class UserController extends Controller
         } else {
             $fileNameToStore = $user->photo;
         }
+        
         $request->request->add(['photo' => $fileNameToStore]);
         $user->update($request->all());
 
@@ -240,7 +260,7 @@ class UserController extends Controller
             'affected_table' => 'users',
             'user_id' => Auth::Id(),
         ]);
-        return redirect('users/' . $user->id)->with('success', 'User Registered');                
+        return redirect('users/' . $user->id)->with('success', 'User Profile Updated Successfully');                
     }
 
     /**
@@ -254,6 +274,9 @@ class UserController extends Controller
         //
         $this->authorize('delete', $user);
 
+        if($user->knowledgeProduct->count() > 0)
+            return response()->json('Error can not delete ---// Remove his knowledge Products First');
+            
         UserLog::create([
             'operation' => 'Delete',
             'action' => 'Deleted User Information',
@@ -262,16 +285,18 @@ class UserController extends Controller
             'affected_table' => 'users',
             'user_id' => Auth::Id(),
         ]);
-        if($user->knowledgeProduct->count() > 0)
-            return response()->json('Error can not delete');
-            
         $user->delete();
 
-        return response()->json('Success');
+        return response()->json('User Account Successfully Deleted');
     }
 
     public function assignRole(Request $request, User $user)
     {
+        
+        $this->validate($request, [
+            'role_id' => 'required|integer|',
+        ]);
+        
         //
         $this->authorize('assignRole', $user);
 

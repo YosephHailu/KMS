@@ -44,13 +44,12 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         //
+
         $this->validate($request, [
             'office' => 'required|string',
-            'manager' => 'string',
-            'phone' => 'string',
-            'fax' => 'string',
-            'remark' => 'string',
+            'manager' => 'required|string',
         ]);
+
         Contact::create($request->all());
         return redirect('contact')->with('success', 'Contact Information Registered');
     }
@@ -88,12 +87,10 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact)
     {
         //
+
         $this->validate($request, [
             'office' => 'required|string',
-            'manager' => 'string',
-            'phone' => 'string',
-            'fax' => 'string',
-            'remark' => 'string',
+            'manager' => 'required|string',
         ]);
         $contact->update($request->all());
         return redirect('contact')->with('success', 'Contact Information Updated');
@@ -109,7 +106,7 @@ class ContactController extends Controller
     {
         //
         $contact->delete();
-        return response()->json('Success');
+        return response()->json('Successfully Deleted');
     }
     public function tableData()
     {

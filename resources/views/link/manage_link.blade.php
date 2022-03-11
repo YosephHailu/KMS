@@ -27,7 +27,7 @@
             <fieldset class="mb-3">
                 <div class="form-group row">
                     <div class="input-label col-md-6">
-                        {{Form::label('name', 'Name ' ,['class'=>'text-muted m-1'])}}
+                        {{Form::label('name', 'Name *' ,['class'=>'text-muted m-1'])}}
                         <div class="form-group form-group-feedback form-group-feedback-left">
                             {{Form::text('name', $new?'':$link->name,['class'=>'form-control', 'placeholder'=> 'Google, Wikipedia..'])}}
                             <div class="form-control-feedback">
@@ -53,7 +53,7 @@
             @if (!$new)
             {{Form::hidden('_method','PUT')}}
             @endif
-            {{Form::submit($new?'Save':'Edit',['class'=>'btn btn-primary float-right'])}}
+            {{Form::submit($new?'Save':'Update',['class'=>'btn btn-primary float-right'])}}
             {!! Form::close() !!}
         </div>
     </div>

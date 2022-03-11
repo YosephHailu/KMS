@@ -27,6 +27,9 @@ return [
     'nav_contact' => 'Contact',
 //body
     'about_system' => 'About The System',
+    'total_knowledge_product' => 'Total number of Knowledge products store in the database',
+    'total_project' => 'Total number of Projects’ knowledge products store in the database',
+    'total_contributor' => 'Total number of knowledge contributors for KMS',
 
 //footer
     'footer_mowie' => 'MOWIE',

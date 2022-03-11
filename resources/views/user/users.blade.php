@@ -136,7 +136,10 @@
 			});
             location.reload();
         }).fail(function(msg){
-            console.log(msg);
+			new PNotify({
+				text: "Can't delete",
+				addclass: 'bg-danger border-primary'
+			});
         });
     });
 </script>

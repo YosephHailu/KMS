@@ -18,21 +18,50 @@
 		</div>
 	</div>
 	<!-- /Page Buttons -->
+	<div class="row px-2">
+		@foreach ($blogs as $blog)
+		<!-- Blog layout #3 with image -->
+		<div class="card col-lg-6">
+			<div class="card-body">
+				<div class="card-img-actions mr-3">
+					<img class="card-img img-fluid" style="max-height: 300px;"
+						src="{{asset('storage/blog_photos/'.$blog->photo)}}" alt="">
+					<div class="card-img-actions-overlay card-img">
+						<a href="{{url('news/'.$blog->id)}}"
+							class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
+							<i class="icon-link"></i>
+						</a>
+					</div>
+				</div>
 
-	<div class="card pt-2">
-		<table class="table datatable-scroll-y" width="100%" id="myTable">
-			<thead class="bg-blue">
-				<tr>
-					<th>Id</th>
-					<th>Title</th>
-					<th>Message</th>
-					<th>User</th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-		</table>
+				<div class="mb-3">
+					<h3 class="font-weight-semibold my-1">
+						<a href="#" class="text-default">{{$blog->title}}</a>
+					</h3>
+					<ul class="list-inline list-inline-dotted text-muted mb-0">
+						<li class="list-inline-item"> <a href="#" class="text-muted">{{$blog->sub_title}}</a></li>
+						<li class="list-inline-item">{{\Carbon\Carbon::parse($blog->created_at)->format('d, M, Y')}}
+						</li>
+						<li class="list-inline-item"><a href="#" class="text-muted"><i
+									class="icon-eye font-size-base text-pink mr-2"></i>
+								{{number_format($blog->views)}} </a>
+						</li>
+						<li class="list-inline-item float-right">
+							<a href="#" class="text-muted" onclick="deleteBlog({{$blog->id}})"> <i
+									class="icon-trash text-small text-danger"></i></a></li>
+
+						<li class="list-inline-item float-right mr-3">
+							<a href="{{'news/'.$blog->id.'/edit'}}" class="text-muted"> <i
+									class="icon-pen6 text-small text-primary"></i></a></li>
+
+					</ul>
+				</div>
+
+				<p>{{str_limit($blog->message, 300, '') }} <a href="{{url('news/'.$blog->id)}}">[...]</a>
+			</div>
+		</div>
+		<!-- /blog layout #3 with image -->
+		@endforeach
 	</div>
 	<!-- /scrollable datatable -->
 </div>
@@ -46,7 +75,7 @@
 				<h5 class="modal-title">Delete News Information</h5>
 			</div>
 			<div class="modal-body">
-				<p>Press continue to Delete News</p>
+				<p>Press Continue To Delete News</p>
 			</div>
 
 			<div class="modal-footer" style="clear:both">

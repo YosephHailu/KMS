@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $role = Role::firstOrCreate(['name' => 'admin']);
         $permission = Permission::firstOrCreate(['name' => strtolower('all')]);
         Permission::firstOrCreate(['name' => strtolower('manage knowledge')]);
-        Permission::firstOrCreate(['name' => strtolower('directorate manager')]);
+        Permission::firstOrCreate(['name' => strtolower('manage directorate')]);
         $role->givePermissionTo($permission);
 
         $user = User::create([

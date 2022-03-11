@@ -4,93 +4,62 @@
 
 <div class="card mt-3 mx-auto col-10">
 	<div class="card-body">
-		<div class="mt-1 mb-4">
-			<h3 class="font-weight-semibold">About The System</h3>
-			<p>Knowledge management is the process of creating, sharing, using and managing the knowledge and
-				information of an organization. It refers to a multidisciplinary approach to achieving
-				organizational objectives by making the best use of knowledge.</p>
-			<p>The Knowledge Portal of OWERDB will present updated resources and documentation.
-				It provides experts the resources to review policies, guidelines, previous reports and case
-				stories from various projects in the organization. They are typically used to showcase the work
-				of an organisation and provide signposts to documents, articles and toolkits. The portal is
-				updated with the support of the knowledge management unit and by assigned staff from each
-				directorate.</p>
-			<p>The resources may be produced by the various experts and directorates within OWERDB and at all
-				government levels: zones and woredas. Learning and research documents by other WASH stakeholders
-				will also be included.</p>
+		<div class="mt-1 mb-4 " id="#searching">
+			<h3 class="font-weight-semibold text-blue">Frequent Asked Question (FAQ) </h3>
 		</div>
-
-		<h3>Each thematic area can be navigated to from the homepage and contains the following information:
-		</h3>
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="mb-4">
-					<dl>
-						<dt class="font-size-sm font-weight-bold text-uppercase p-1">
-							<i class="icon-checkmark3 text-blue mr-2"></i>
-							Key documents that relate to the area.
-						</dt>
-
-						<dt class="font-size-sm font-weight-bold text-uppercase p-1">
-							<i class="icon-checkmark3 text-blue mr-2"></i>
-							Resources and documents that relate to the theme. These can be further filtered
-							based on the theme sub categories, language and document type options.
-						</dt>
-
-					</dl>
-				</div>
-			</div>
-
-			<div class="col-sm-6">
-				<div class="mb-4">
-					<dl>
-
-						<dt class="font-size-sm font-weight-bold text-uppercase ">
-							<i class="icon-checkmark3 text-blue mr-2"></i>
-							A brief description of the thematic area
-						</dt>
-						<dt class="font-size-sm font-weight-bold text-uppercase p-1">
-							<i class="icon-checkmark3 text-blue mr-2"></i>
-							Key people to contact,
-						</dt>
-
-					</dl>
-				</div>
-			</div>
-		</div>
-		<h3>Vision</h3>
-		Ethiopia will be a model of excellence in water resources development utilization and renewable energy
-		hub in East Africa by 2015.
-
-		<h3 class='mt-1'>Mission</h3>
-		Play a significant role in the socio-economic development of Ethiopia through development and management
-		of its water and energy resources in a sustainable manner, through provision of quality and equitable
-		supplies in the entire country and by contributing significantly to the food security and foreign
-		currency earning.
-		<h6 class="font-weight-semibold">Available directorates</h6>
+		<dl>
+		<a href="#searching" class="font-size-sm font-weight-bold text-uppercase ">
+				<i class="icon-question4 text-blue mr-2"></i>
+				How can I search knowledge products?
+		</a>
+	</dl>
+	<dl>
+		<a href="{{url('search/public/?q=training manual')}}" class="font-size-sm font-weight-bold text-uppercase ">
+				<i class="icon-question4 text-blue mr-2"></i>
+				If you have need further information, please search and download training manual.
+		</a>
+	</dl>
 	</div>
+</div>
+<div class="card mt-3 mx-auto col-10">
+	<div class="card-body">
+		<div class="mt-1 mb-4">
+			<h3 class="font-weight-semibold text-blue">1. Header Menu of the Home page</h3>
+			<p>The home interface of KMS has many graphic menus. Figure 1 shows the overall interface of the system</p>
+			<img src="{{asset('help_img/home_page.png')}}" width="100%" alt="">
+		</div>
+		<div class="mt-1 mb-4 ">
+			<h3 class="font-weight-semibold text-blue">2. Body menu of the KMS </h3>
+			<p>Next to header interface, the system summarized and informs users to have information about total WASH
+				knowledge products uploaded,
+				number of knowledge contributors and projects. </p>
+			<img src="{{asset('help_img/home_statistics.png')}}" width="100%" alt="">
+		</div>
+		<div class="mt-1 mb-4 " id="#searching">
+			<h3 class="font-weight-semibold text-blue">3. Searching </h3>
 
-	<div class="table-responsive">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Directorate</th>
-					<th>Description</th>
-					<th>Manager</th>
-					<th>Contact</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (App\Directorate::All() as $directorate)
-				<tr>
-					<td>{{$directorate->name}}</td>
-					<td>{{$directorate->description}}
-					<td>{{$directorate->manager}}
-					<td>{{$directorate->contact}}
-				</tr>
-				@endforeach
-			</tbody>
-		</table>
+			<div class="mb-4">
+				<dl>
+
+					<dt class="font-size-sm font-weight-bold text-uppercase ">
+						<i class="icon-checkmark3 text-blue mr-2"></i>
+						Type key words on search field
+					</dt>
+					<dt class="font-size-sm font-weight-bold text-uppercase p-1">
+						<i class="icon-checkmark3 text-blue mr-2"></i>
+						Click search search button or press enter
+					</dt>
+					<dt class="font-size-sm font-weight-bold text-uppercase p-1">
+						<i class="icon-checkmark3 text-blue mr-2"></i>
+						If the knowledge product is not displayed on the system,
+						please try changing other key word and repeating the above steps
+					</dt>
+
+				</dl>
+			</div>
+			<h3 class="font-weight-semibold text-blue ml-3"> Search result interface </h3>
+			<img src="{{asset('help_img/search_result.png')}}" width="100%" alt="">
+		</div>
 	</div>
 </div>
 @endsection

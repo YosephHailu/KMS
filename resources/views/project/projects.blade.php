@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-<span class="breadcrumb-item active">Project</span>
+<span class="breadcrumb-item active">{{__('app.nav_projects')}}</span>
 @endsection
 <!-- Main content -->
 <div class="content-wrapper">
@@ -13,7 +13,7 @@
 		@can('create', App\KnowledgeProduct::class)
 		<div class="card">
 			<div class="p-2">
-				<a href="{{url('projects/create')}}" class="btn bg-blue">Add Project</a>
+				<a href="{{url('projects/create')}}" class="btn bg-blue">{{__('knowledge.add_project')}}</a>
 			</div>
 		</div>
 		@endcan
@@ -21,12 +21,12 @@
 			<table class="table datatable-scroll-y " width="100%" id="myTable">
 				<thead class="bg-blue">
 					<tr>
-						<th>Id</th>
-						<th>Title</th>
-						<th>Manager</th>
-						<th>Category</th>
-						<th>Directorate</th>
-						<th>Status</th>
+						<th>{{__('knowledge.id')}}</th>
+						<th>{{__('knowledge.title')}}</th>
+						<th>{{__('knowledge.manager')}}</th>
+						<th>{{__('knowledge.category')}}</th>
+						<th>{{__('knowledge.directorate')}}</th>
+						<th>{{__('knowledge.status')}}</th>
 						<th></th>
 						<th></th>
 						<th></th>

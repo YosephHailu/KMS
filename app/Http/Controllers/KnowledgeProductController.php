@@ -127,8 +127,10 @@ class KnowledgeProductController extends Controller
      */
     public function destroy($knowledgeProduct)
     {
-        //
+        //Find knowledge product by id
         $knowledgeProduct = KnowledgeProduct::find($knowledgeProduct);
+
+        //Authorize if logged in user is authorized to delete the knowledge product
         $this->authorize('delete', $knowledgeProduct);
 
         $knowledgeCategory = $knowledgeProduct->knowledgeCategory;
@@ -147,19 +149,22 @@ class KnowledgeProductController extends Controller
 
     public function tableData()
     {
+        //Select all knowledge products the logged in use is authorized to view
         $knowledgeProducts = knowledgeProduct::All()->filter(function ($knowledgeProduct) {
-            return $knowledgeProduct->accessLevel->level_number <= Auth::user()->accessLevel->level_number || Auth::Id() == $knowledgeProduct->user_id;
+            return Auth::user()->can('view', $knowledgeProduct);
         });
 
         return Datatables::of($knowledgeProducts)->addColumn('directorate', function ($knowledge) {
             return $knowledge->directorate->name;
         })->addColumn('delete', function ($knowledge) {
-            if (Auth::user()->can('all') || $knowledge->user_id == Auth::Id())
+            if (Auth::user()->can('delete', $knowledge) || $knowledge->user_id == Auth::Id())
                 return '<a href="" onclick="deleteKnowledgeProduct(' . $knowledge->id . ')" id=' . $knowledge->id . ' class="text-danger"><i class="icon-trash"></i></a>';
             else
                 return '';
         })->addColumn('open', function ($knowledge) {
-            return '<a href="' . url('knowledge/' . $knowledge->id) . '"><i class="icon-new-tab"></i> </a>';
+            if($knowledge->approved)
+                return '<a href="' . url('knowledge/' . $knowledge->id) . '"><i class="icon-checkmark-circle text-success"></i> </a>';
+            return '<a href="' . url('knowledge/' . $knowledge->id) . '"><i class="icon-notification2 text-danger"></i> </a>';
         })->addColumn('category', function ($knowledge) {
             return $knowledge->knowledgeCategory->category;
         })->rawColumns(['delete', 'open'])->make(true);
@@ -174,13 +179,18 @@ class KnowledgeProductController extends Controller
      */
     public function updateStatus(knowledgeProduct $knowledgeProduct)
     {
-        //
+        //update knowledge product status
         $knowledgeProduct->approved = !$knowledgeProduct->approved;
-
         $knowledgeProduct->save();
 
-        return redirect()->back()->with('success', "Knowledge product ".$knowledgeProduct->approved?"Published":"Unpublished");
-
+        //Check and redirect based on approved status
+        if($knowledgeProduct->approved){
+            $message = "Knowledge product published";
+            return redirect()->back()->with('success', $message);
+        }else{
+            $message = "Knowledge product unpublished";
+            return redirect()->back()->with('error', $message);
+        }
     }
 
     /**
@@ -191,13 +201,14 @@ class KnowledgeProductController extends Controller
      */
     public function approve()
     {
-        //
-
+        //Get all knowledge product ids the authorized user can approve
         $knowledgeIds = KnowledgeProduct::All()->filter(function ($knowledge) {
             return Auth::user()->can('publish', $knowledge) && !$knowledge->approved;
         })->pluck('id');;
 
+        //Select the knowledge based on the ids selected and paginate
         $knowledges = KnowledgeProduct::whereIn('id', $knowledgeIds)->paginate(20);
+
         return view('knowledge.approve')->with('knowledges', $knowledges);
 
     }

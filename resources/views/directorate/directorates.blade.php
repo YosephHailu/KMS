@@ -47,6 +47,7 @@
 			@endforeach
 		</div>
 		<!-- /dashboard content -->
+	{{$directorates->links()}}
 
 	</div>
 	<!-- /content area -->
@@ -60,7 +61,7 @@
 	<div class="modal-dialog zoom" id="animate" ui-class="zoom">
 		<div class="modal-content bg-danger">
 			<div class="modal-header">
-				<h5 class="modal-title">Delete Directorate</h5>
+				<h5 class="modal-title">Delete Directorate Information</h5>
 			</div>
 			<div class="modal-body">
 				<p>Press continue to delete directorate information</p>

@@ -83,6 +83,7 @@ Route::Resources([
     'contact' => 'ContactController',
     'language' => 'LanguageController',
     'unit' => 'UnitController',
+    'company' => 'CompanyController',
 ]);
 
 //Data Table Urls
@@ -100,12 +101,14 @@ Route::get('contactTableData', 'ContactController@tableData');
 
 //Static Pages urls
 Route::get('about', 'PageController@about');
+Route::get('about_system', 'PageController@about_system');
 Route::get('audit', 'PageController@audit');
-Route::get('contacts', 'PageController@contacts');
+Route::get('contacts', 'PageController@contact');
 Route::get('help', 'PageController@help');
 //End Static Pages urls
 
 Route::get('getAttachment/{attachment}', 'AttachmentController@getAttachment');
+Route::get('initializeAttachmentDownload/{attachment}', 'AttachmentController@initializeDownload');
 
 //Json Files
 Route::get('userActivitiesJson/{user}', 'UserController@userActivityJson');

@@ -81,6 +81,10 @@ class AccessLevelController extends Controller
     public function edit(AccessLevel $accessLevel)
     {
         //
+        return view('auth.access_control')
+            ->with('accessLevel', $accessLevel)
+            ->with('roles', Role::All());
+
     }
 
     /**
@@ -93,6 +97,12 @@ class AccessLevelController extends Controller
     public function update(Request $request, AccessLevel $accessLevel)
     {
         //
+        $this->validate($request, [
+            'level' => 'required|string',
+            'level_number' => 'required|integer',
+        ]);
+        $accessLevel->update($request->all());
+        return redirect('/access')->with('success', 'Access Level Registered');
     }
 
     /**
@@ -105,7 +115,7 @@ class AccessLevelController extends Controller
     {
         //
 
-        if ($accessLevel->knowledgeProduct->count() > 0) {
+        if ($accessLevel->knowledgeProduct->count() > 0 || $accessLevel->user->count() > 0) {
             return response()->json('Can not delete access level');            
         }
         

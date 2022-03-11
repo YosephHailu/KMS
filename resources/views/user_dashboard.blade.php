@@ -65,7 +65,7 @@
 						</div>
 
 						<div>
-							Total Attachments
+							{{__('app.dashboard_total_attachments')}}
 							<div class="font-size-sm opacity-75"></div>
 						</div>
 					</div>
@@ -114,7 +114,6 @@
 						<div class="d-flex">
 							<h3 class="font-weight-semibold mb-0">
 								{{number_format(Auth::user()->directorate->knowledgeProduct->count())}}</h3>
-
 						</div>
 
 						<div>
@@ -141,7 +140,7 @@
 						</div>
 
 						<div>
-							Total Attachments
+							{{__('app.dashboard_total_attachments')}}
 							<div class="font-size-sm opacity-75"></div>
 						</div>
 					</div>
@@ -206,10 +205,6 @@
 											<div>
 												<span
 													class="text-default font-weight-semibold">{{$category->category}}</span>
-												<div class="text-muted font-size-sm">
-													<span class="badge badge-mark border-blue mr-1"></span>
-													02:00 - 03:00
-												</div>
 											</div>
 										</div>
 									</td>
@@ -231,7 +226,7 @@
 				<!-- Latest documents -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">Latest News</h6>
+						<h6 class="card-title">{{__('app.dashboard_latest_news')}}</h6>
 						<div class="header-elements">
 							<div class="list-icons">
 								<a class="list-icons-item" data-action="collapse"></a>
@@ -250,7 +245,7 @@
 												href="{{url('knowledge/'.$blog->id)}}">{{$blog->title}}</a></h6>
 										<ul class="list-inline list-inline-dotted text-muted mb-2">
 											<li class="list-inline-item"><i class="icon-arrow-right5 mr-2"></i>
-												By : {{$blog->user->name}}</li>
+												{{__('app.by')}} : {{$blog->user->name}}</li>
 										</ul>
 										{{str_limit($blog->message, 300, '...')}}
 									</div>
@@ -315,10 +310,6 @@
 										<div>
 											<a href="#"
 												class="text-default font-weight-semibold">{{$category->category}}</a>
-											<div class="text-muted font-size-sm">
-												<span class="badge badge-mark border-blue mr-1"></span>
-												02:00 - 03:00
-											</div>
 										</div>
 									</div>
 								</td>
@@ -374,7 +365,7 @@
 			@if(Auth::user()->hasAnyPermission('all'))
 			<div class="card mb-3">
 				<div class="card-header header-elements-inline">
-					<h6 class="card-title">Latest Members</h6>
+					<h6 class="card-title">{{__('app.dashboard_latest_members')}}</h6>
 				</div>
 
 				<div class="card-body  text-center">
@@ -388,14 +379,14 @@
 					</a>
 					@endforeach
 				</div>
-				<a href="{{url('directorateUser')}}" class="text-center p-2">Show All →</a>
+				<a href="{{url('directorateUser')}}" class="text-center p-2">{{__('app.dashboard_show_all')}} →</a>
 			</div>
 			@endif
 
 			@if(Auth::user()->hasAnyPermission('manage directorate'))
 			<div class="card mb-3">
 				<div class="card-header header-elements-inline">
-					<h6 class="card-title">Latest Members</h6>
+					<h6 class="card-title">{{__('app.dashboard_latest_members')}}</h6>
 				</div>
 
 				<div class="card-body  text-center">
@@ -409,13 +400,13 @@
 					</a>
 					@endforeach
 				</div>
-				<a href="{{url('directorateUser')}}" class="text-center p-2">Show All →</a>
+				<a href="{{url('directorateUser')}}" class="text-center p-2">{{__('app.dashboard_show_all')}} →</a>
 			</div>
 			@endif
 			<!-- Latest Documents -->
 			<div class="card">
 				<div class="card-header header-elements-inline bg-indigo-400">
-					<h6 class="card-title">Latest Documents</h6>
+					<h6 class="card-title">{{__('app.dashboard_latest_documents')}}</h6>
 				</div>
 
 				<!-- Latest Documents Report -->

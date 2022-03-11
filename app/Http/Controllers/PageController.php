@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\Directorate;
+use App\Contact;
 class PageController extends Controller
 {
     //
@@ -20,6 +21,18 @@ class PageController extends Controller
         //
         return view('static_pages.about');
     }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Photo  $photo
+     * @return \Illuminate\Http\Response
+     */
+    public function about_system()
+    {
+        //
+        return view('static_pages.about_system');
+    }
 
     /**
      * Display the specified resource.
@@ -30,7 +43,8 @@ class PageController extends Controller
     public function contact()
     {
         //
-        return view('static_pages.contact');
+        $contacts = Contact::All();
+        return view('static_pages.contact')->with('contacts', $contacts);
     }
     
     /**

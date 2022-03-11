@@ -19,6 +19,7 @@ class CreateProjectsTable extends Migration
             $table->string('contract_no')->nullable();
             $table->text('knowledge_description');
             $table->text('outcome')->nullable();
+            $table->text('output')->nullable();
             $table->date('starting_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('beneficiaries_region')->nullable();

@@ -81,7 +81,7 @@
             @if (!$new)
             {{Form::hidden('_method','PUT')}}
             @endif
-            {{Form::submit($new?'Save':'Edit',['class'=>'btn btn-primary float-right'])}}
+            {{Form::submit($new?'Save':'Update',['class'=>'btn btn-primary float-right'])}}
         </div>
         {!! Form::close() !!}
     </div>

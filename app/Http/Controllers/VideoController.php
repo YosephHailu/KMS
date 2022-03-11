@@ -70,8 +70,14 @@ class VideoController extends Controller
             'keywords' => 'required|string',
             'knowledge_description' => 'required|string',
             'access_level_id' => 'required|integer',
-            'created_date' => 'required|date'
+            'created_date' => 'required|date',
+            'attachment.*' => 'required|mimes:mp4,avi,wmv,mkv,mov,qt,avchd,flv,swf|max:100000'
+        ],[
+            'attachment.*.required' => 'Please upload video',
+            'attachment.*.mimes' => 'Only mp4, avi, wmv, mkv, mov, qt, avchd, flv, swf videos are allowed',
+            'attachment.*.max' => 'Sorry! Maximum allowed size for an image is 100 MB',
         ]);
+
 
         $knowledgeCategory = KnowledgeCategory::firstOrCreate(['category' => 'Video']);
 
@@ -112,9 +118,6 @@ class VideoController extends Controller
             'user_id' => Auth::Id(),
         ]);
         
-        // foreach(Auth::user()->directorate->user as $user)
-        //     $user->notify(new KnowledgeProductNotification($knowledgeProduct));
-            
         return redirect('video')->with('success', 'Video Information Registered');
     }
 
@@ -166,11 +169,17 @@ class VideoController extends Controller
             'keywords' => 'required|string',
             'knowledge_description' => 'required|string',
             'access_level_id' => 'required|integer',
-            'created_date' => 'required|date'
+            'created_date' => 'required|date',
+            'attachment.*' => 'required|mimes:mp4,avi,wmv,mkv,mov,qt,avchd,flv,swf|max:100000'
+        ],[
+            'attachment.*.required' => 'Please upload video',
+            'attachment.*.mimes' => 'Only mp4, avi, wmv, mkv, mov, qt, avchd, flv, swf videos are allowed',
+            'attachment.*.max' => 'Sorry! Maximum allowed size for an image is 100 MB',
         ]);
 
 
         $knowledgeProduct = KnowledgeProduct::find($video->knowledgeProduct->id);
+        $knowledgeProduct->approved = false;
         $knowledgeProduct->update($request->All());
 
         $request->request->add(['knowledge_product_id' => $knowledgeProduct->id]);

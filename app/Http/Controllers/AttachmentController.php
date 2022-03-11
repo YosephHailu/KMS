@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 use Auth;
 class AttachmentController extends Controller
 {
@@ -61,12 +62,13 @@ class AttachmentController extends Controller
         
         $knowledgeCategory = $attachment->knowledgeProduct->knowledgeCategory;
         $document = KnowledgeCategory::firstOrCreate(['category'=>'Document']);
-        $sub_url =$knowledgeCategory->id==$document->id ? $attachment->knowledgeProduct->document->documentCategory->category: "";
 
-        $attachment->downloads = $attachment->downloads + 1;
-        $attachment->save();
+        $sub_url = "";
+        if($attachment->knowledgeProduct->document != null)
+            $sub_url =$knowledgeCategory->id==$document->id ? $attachment->knowledgeProduct->document->documentCategory->category: "";
+
         if(Storage::exists('Attachment/'.$knowledgeCategory->category.'/'. $sub_url.'/'.$attachment->file_url))        
-            return Storage::download('Attachment/'.$knowledgeCategory->category.'/'. $sub_url.'/'.$attachment->file_url);  
+            return Storage::download('Attachment/'.$knowledgeCategory->category.'/'. $sub_url.'/'.$attachment->file_url, Str::ascii($attachment->file_url));  
         else
             return redirect()->back()->with('error', "Can not Find Attachment Try Again Latter");
     }
@@ -78,11 +80,47 @@ class AttachmentController extends Controller
      * @param  \App\Attachment  $attachment
      * @return \Illuminate\Http\Response
      */
+    public function initializeDownload(Attachment $attachment)
+    {
+        //        
+        if(Auth::check()){
+            $this->authorize('view', $attachment->knowledgeProduct);
+            }else{
+                if($attachment->knowledgeProduct->accessLevel->level_number > 0){
+                    return false;
+                }
+            }
+            
+            $knowledgeCategory = $attachment->knowledgeProduct->knowledgeCategory;
+            $document = KnowledgeCategory::firstOrCreate(['category'=>'Document']);
+    
+            $sub_url = "";
+            if($attachment->knowledgeProduct->document != null)
+                $sub_url =$knowledgeCategory->id==$document->id ? $attachment->knowledgeProduct->document->documentCategory->category: "";
+    
+            if(Storage::exists('Attachment/'.$knowledgeCategory->category.'/'. $sub_url.'/'.$attachment->file_url)){
+                $attachment->downloads = $attachment->downloads + 1;
+                $attachment->save();
+                return ['downloadable' => true];  
+            }else{
+                return ['downloadable' => false];  
+            }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Attachment  $attachment
+     * @return \Illuminate\Http\Response
+     */
     public function getAttachment(Attachment $attachment)
     {
         $knowledgeCategory = $attachment->knowledgeProduct->knowledgeCategory;
         $document = KnowledgeCategory::firstOrCreate(['category'=>'Document']);
-        $sub_url =$knowledgeCategory->id==$document->id ? $attachment->knowledgeProduct->document->documentCategory->category: "";
+
+        $sub_url = "";
+        if($attachment->knowledgeProduct->document != null)
+            $sub_url =$knowledgeCategory->id==$document->id ? $attachment->knowledgeProduct->document->documentCategory->category: "";
 
         $path = storage_path('app/Attachment/'.$knowledgeCategory->category.'/'. $sub_url.'/'.$attachment->file_url);
 

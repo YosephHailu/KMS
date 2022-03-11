@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 
-<span class="breadcrumb-item active">Photos</span>
+<span class="breadcrumb-item active">{{__('app.nav_photos')}}</span>
 @endsection
 
 <!-- Main content -->
@@ -17,7 +17,7 @@
 		@can('create', App\KnowledgeProduct::class)
 		<div class="card p-2">
 			<div class="col-md-4">
-				<a href="{{url('photo/create')}}" class="btn bg-blue">Add Photo Gallery</a>
+				<a href="{{url('photo/create')}}" class="btn bg-blue">{{__('knowledge.add_photo')}}</a>
 			</div>
 		</div>
 		@endif
@@ -27,11 +27,11 @@
 			<table class="table datatable-scroll-y" width="100%" id="myTable">
 				<thead class="bg-blue">
 					<tr>
-						<th>Id</th>
-						<th>Title</th>
-						<th>Directorate</th>
-						<th>Source</th>
-						<th>Created Date</th>
+						<th>{{__('knowledge.id')}}</th>
+						<th>{{__('knowledge.title')}}</th>
+						<th>{{__('knowledge.directorate')}}</th>
+						<th>{{__('knowledge.source')}}</th>
+						<th>{{__('knowledge.created_date')}}</th>
 						<th></th>
 						<th></th>
 						<th></th>

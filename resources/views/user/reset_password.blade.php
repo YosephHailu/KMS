@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <label class="form-text text-muted">New Password * </label>
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                {{Form::text('password', '', ['class'=>'form-control','placeholder'=>'Enter Password'])}}
+                                {{Form::password('password', ['class'=>'form-control','placeholder'=>'Enter Password'])}}
                                 <div class="form-control-feedback">
                                     <i class="icon-lock"></i>
                                 </div>
@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                             <label class="form-text text-muted">Confirm Password * </label>
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                {{Form::text('password_confirmation', '', ['class'=>'form-control','placeholder'=>'Confirm Password'])}}
+                                {{Form::password('password_confirmation', ['class'=>'form-control','placeholder'=>'Confirm Password'])}}
                                 <div class="form-control-feedback">
                                     <i class="icon-lock"></i>
                                 </div>

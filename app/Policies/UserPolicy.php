@@ -132,9 +132,8 @@ class UserPolicy
         return false;
     }
 
-    
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can assign role to the model.
      *
      * @param  \App\User  $user
      * @param  \App\User  $model
@@ -163,7 +162,7 @@ class UserPolicy
     }
     
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the user can remove role from the model.
      *
      * @param  \App\User  $user
      * @param  \App\User  $model
@@ -192,6 +191,34 @@ class UserPolicy
     }
     
     /**
+     * Determine whether the user can assign role to the model.
+     *
+     * @param  \App\User  $user
+     * @param  \App\User  $model
+     * @return mixed
+     */
+    public function updateAccessLevel(User $user, User $model)
+    {
+        //
+        if ($model->hasAnyPermission('all')) {
+            if ($user->id == $model->id)
+                return true;
+            else
+                return false;
+        }
+
+        if ($user->hasAnyPermission('all')) {
+            return true;
+        }
+
+        if ($user->hasAnyPermission('manage directorate')) {
+            if ($user->directorate->id == $model->directorate->id)
+                return true;
+        }
+
+        return false;
+    }
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
@@ -201,7 +228,7 @@ class UserPolicy
     public function updateDirectorate(User $user, User $model)
     {
         //
-        if ($model->hasAnyPermission('all')) {
+        if ($model->hasAnyPermission('all') && !$user->hasAnyPermission('all')) {
                 return false;
         }
 
