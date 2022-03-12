@@ -464,7 +464,7 @@
 				<div class="tab-content card-body">
 					<div class="tab-pane active fade show" id="messages-tue">
 						<ul class="media-list">
-							@foreach ($projects->take(10) as $project)
+							{{-- @foreach ($projects->take(10) as $project)
 							<li class="media">
 								<div class="media-body">
 									<div class="d-flex justify-content-between">
@@ -477,7 +477,7 @@
 									{{str_limit($project->knowledge_description, 100, '...')}}
 								</div>
 							</li>
-							@endforeach
+							@endforeach --}}
 						</ul>
 					</div>
 				</div>
