@@ -22,13 +22,13 @@
 				<div class="card bg-success">
 					<div class="card-body">
 						<div class="d-flex">
-							<h3 class="font-weight-semibold mb-0">{{number_format(App\User::All()->count())}}</h3>
+							<h3 class="font-weight-semibold mb-0">{{number_format(\App\User::All()->count())}}</h3>
 						</div>
 
 						<div>
 							{{__('app.dashboard_users')}}
 							<div class="font-size-sm opacity-75">
-								{{number_format(App\User::where('user_status_id', App\UserStatus::firstOrCreate(['status'=>'Active'])->id)->count())}}
+								{{number_format(\App\User::where('user_status_id', \App\UserStatus::firstOrCreate(['status'=>'Active'])->id)->count())}}
 								{{__('app.dashboard_active_users')}}</div>
 						</div>
 					</div>
@@ -44,14 +44,14 @@
 					<div class="card-body">
 						<div class="d-flex">
 							<h3 class="font-weight-semibold mb-0">
-								{{number_format(App\knowledgeProduct::All()->count())}}</h3>
+								{{number_format(\App\knowledgeProduct::All()->count())}}</h3>
 
 						</div>
 
 						<div>
 							{{__('app.dashboard_total_knowledge_product')}}
 							<div class="font-size-sm opacity-75">This Year :
-								{{number_format(App\knowledgeProduct::All()->count())}}</div>
+								{{number_format(\App\knowledgeProduct::All()->count())}}</div>
 						</div>
 					</div>
 
@@ -66,7 +66,7 @@
 				<div class="card bg-danger">
 					<div class="card-body">
 						<div class="d-flex">
-							<h3 class="font-weight-semibold mb-0">{{number_format(App\Attachment::All()->count())}}
+							<h3 class="font-weight-semibold mb-0">{{number_format(\App\Attachment::All()->count())}}
 							</h3>
 						</div>
 
@@ -99,7 +99,7 @@
 						<div>
 							{{__('app.nav_directorate_users')}}
 							<div class="font-size-sm opacity-75">
-								{{number_format(Auth::user()->directorate->user->where('user_status_id', App\UserStatus::firstOrCreate(['status'=>'Active'])->id)->count())}}
+								{{number_format(Auth::user()->directorate->user->where('user_status_id', \App\UserStatus::firstOrCreate(['status'=>'Active'])->id)->count())}}
 								{{__('app.dashboard_active_users')}}</div>
 						</div>
 					</div>
@@ -174,7 +174,7 @@
 						<div class="d-flex align-items-center mb-3 mb-sm-0">
 							<div id="campaigns-donut"></div>
 							<div class="ml-3">
-								<h5 class="font-weight-semibold mb-0">{{number_format(App\knowledgeProduct::All()->count())}}</h5>
+								<h5 class="font-weight-semibold mb-0">{{number_format(\App\knowledgeProduct::All()->count())}}</h5>
 								<span class="badge badge-mark border-success mr-1"></span> <span
 									class="text-muted">{{__('app.dashboard_total_knowledge_product')}}</span>
 							</div>
@@ -182,7 +182,7 @@
 						<div class="d-flex align-items-center mb-3 mb-sm-0">
 							<div id="campaigns-donut"></div>
 							<div class="ml-3">
-								<h5 class="font-weight-semibold mb-0">{{number_format(App\Directorate::All()->count())}}
+								<h5 class="font-weight-semibold mb-0">{{number_format(\App\Directorate::All()->count())}}
 								</h5>
 								<span class="badge badge-mark border-success mr-1"></span> <span
 									class="text-muted">{{__('app.dashboard_total_directorate')}}</span>
@@ -205,7 +205,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach (App\KnowledgeCategory::All() as $category)
+								@foreach (\App\KnowledgeCategory::All() as $category)
 								<tr>
 									<td>
 										<div class="d-flex align-items-center">
@@ -244,7 +244,7 @@
 					<div class="card-body pb-0">
 						<div class="row">
 							<div class="p-2">
-								@foreach (App\Blog::take(5)->get() as $blog)
+								@foreach (\App\Blog::take(5)->get() as $blog)
 								<div class="media flex-column flex-sm-row mt-0  mb-3">
 
 									<div class="media-body">
@@ -306,7 +306,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach (App\KnowledgeCategory::All() as $category)
+							@foreach (\App\KnowledgeCategory::All() as $category)
 							<tr>
 								<td>
 									<div class="d-flex align-items-center">
@@ -342,7 +342,7 @@
 				<div class="card-body pb-0">
 					<div class="row">
 						<div class="p-2">
-							@foreach (App\Blog::take(5)->get() as $blog)
+							@foreach (\App\Blog::take(5)->get() as $blog)
 							<div class="media flex-column flex-sm-row mt-0  mb-3">
 
 								<div class="media-body">
@@ -419,7 +419,7 @@
 				</div>
 
 				<div class="card-body  text-center">
-					@foreach (App\User::All()->take(8) as $user)
+					@foreach (\App\User::All()->take(8) as $user)
 					<a href="{{url('users/'.$user->id)}}" class="col-md-6 float-left">
 						<img src="{{asset('storage\user_photos\\'.$user->photo)}}" class="rounded-circle" width="60"
 							height="60" alt="">
