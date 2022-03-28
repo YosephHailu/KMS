@@ -34,11 +34,11 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middlew
 Route::get('/configuration', 'HomeController@configuration')->name('configuration');
 
 //Search urls
-Route::get('/search/public', 'searchController@searchPublic')->name('search');
-Route::get('/search/detail/{knowledgeProduct}', 'searchController@searchDetail');
-Route::get('/search/public/{category}', 'searchController@searchPublicCategory')->name('search');
-Route::get('/search/public/flitter/{name}/{value}', 'searchController@searchFlitter')->name('search');
-Route::get('/search/public/order/{column}/{order}', 'searchController@orderBy')->name('search');
+Route::get('/search/public', 'SearchController@searchPublic')->name('search');
+Route::get('/search/detail/{knowledgeProduct}', 'SearchController@searchDetail');
+Route::get('/search/public/{category}', 'SearchController@searchPublicCategory')->name('search');
+Route::get('/search/public/flitter/{name}/{value}', 'SearchController@searchFlitter')->name('search');
+Route::get('/search/public/order/{column}/{order}', 'SearchController@orderBy')->name('search');
 
 //user
 Route::get('userTableData', 'UserController@tableData');
