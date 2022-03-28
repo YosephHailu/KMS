@@ -3,7 +3,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class knowledgeProduct extends Model
+class KnowledgeProduct extends Model
 {
     protected $fillable = [
         'id', 'title', 'directorate_id', 'source', 'contact', 'keywords', 
