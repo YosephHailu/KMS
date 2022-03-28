@@ -71,7 +71,7 @@ Route::Resources([
     'finance' => 'FinanceController',
     'directorate' => 'DirectorateController',
     'projects' => 'ProjectController',
-    'knowledge' => 'knowledgeProductController',
+    'knowledge' => 'KnowledgeProductController',
     'knowledgeComment' => 'KnowledgeCommentController',
     'document' => 'DocumentController',
     'video' => 'VideoController',
