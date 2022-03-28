@@ -15,7 +15,7 @@ class KnowledgeProductController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('checkPermission:view knowledge | all')->only(['show']);
+        // $this->middleware('checkPermission:view knowledge |  all')->only(['show']);
         $this->middleware('auth');
     }
     /**
