@@ -116,6 +116,7 @@ class KnowledgeProductPolicy
     public function viewKnowledge(User $user)
     {
         //
+        return true;
         // return $user->hasAnyPermission(['all', 'manage knowledge']);
     }
 
