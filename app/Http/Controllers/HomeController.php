@@ -35,7 +35,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function dashboard()
-    {   $knowledge = [];
+    {   $knowledge = collect();
         if(Auth::user()->hasAnyPermission('All')){
             $knowledge = \App\KnowledgeProduct::all();
 
