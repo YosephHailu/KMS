@@ -38,14 +38,14 @@
 					<div class="card-body">
 						<div class="d-flex">
 							<h3 class="font-weight-semibold mb-0">
-								{{number_format(App\knowledgeProduct::All()->count())}}</h3>
+								{{number_format(App\KnowledgeProduct::All()->count())}}</h3>
 
 						</div>
 
 						<div>
 							{{__('app.dashboard_total_knowledge_product')}}
 							<div class="font-size-sm opacity-75">This Year :
-								{{number_format(App\knowledgeProduct::All()->count())}}</div>
+								{{number_format(App\KnowledgeProduct::All()->count())}}</div>
 						</div>
 					</div>
 
@@ -198,7 +198,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach (App\knowledgeProduct::all() as $category)
+								@foreach (App\KnowledgeProduct::all() as $category)
 								<tr>
 									<td>
 										<div class="d-flex align-items-center">

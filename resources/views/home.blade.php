@@ -97,7 +97,7 @@
 
 <div class="p-2"
 	style='background-image: url("{{asset('agri-img.jpg')}}"); background-size: cover; background-attachment: fixed;'>
-	@foreach (\App\knowledgeProduct::take(4)->get() as $knowledge)
+	@foreach (\App\KnowledgeProduct::take(4)->get() as $knowledge)
 	<div class="card col-lg-4 col-md-8">
 		<div class="card-header pb-2">
 			<h6 class="media-title p-0 m-0"><a href="#">{{$knowledge->title}}</a></h6>

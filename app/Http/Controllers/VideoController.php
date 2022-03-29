@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Video;
-use App\knowledgeProduct;
+use App\KnowledgeProduct;
 use App\KnowledgeCategory;
 use Auth;
 use App\UserLog;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Map;
-use App\knowledgeProduct;
+use App\KnowledgeProduct;
 use App\KnowledgeCategory;
 use App\Attachment;
 use Auth;

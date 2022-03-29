@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\knowledgeProduct;
+use App\KnowledgeProduct;
 use App\KnowledgeCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -74,7 +74,7 @@ class KnowledgeProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\knowledgeProduct  $knowledgeProduct
+     * @param  \App\KnowledgeProduct  $knowledgeProduct
      * @return \Illuminate\Http\Response
      */
     public function show($knowledgeProduct)
@@ -95,7 +95,7 @@ class KnowledgeProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\knowledgeProduct  $knowledgeProduct
+     * @param  \App\KnowledgeProduct  $knowledgeProduct
      * @return \Illuminate\Http\Response
      */
     public function edit(knowledgeProduct $knowledgeProduct)
@@ -110,7 +110,7 @@ class KnowledgeProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\knowledgeProduct  $knowledgeProduct
+     * @param  \App\KnowledgeProduct  $knowledgeProduct
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, knowledgeProduct $knowledgeProduct)
@@ -122,7 +122,7 @@ class KnowledgeProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\knowledgeProduct  $knowledgeProduct
+     * @param  \App\KnowledgeProduct  $knowledgeProduct
      * @return \Illuminate\Http\Response
      */
     public function destroy($knowledgeProduct)
@@ -174,7 +174,7 @@ class KnowledgeProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\knowledgeProduct  $knowledgeProduct
+     * @param  \App\KnowledgeProduct  $knowledgeProduct
      * @return \Illuminate\Http\Response
      */
     public function updateStatus(knowledgeProduct $knowledgeProduct)
@@ -196,7 +196,7 @@ class KnowledgeProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\knowledgeProduct  $knowledgeProduct
+     * @param  \App\KnowledgeProduct  $knowledgeProduct
      * @return \Illuminate\Http\Response
      */
     public function approve()

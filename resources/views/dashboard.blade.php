@@ -44,14 +44,14 @@
 					<div class="card-body">
 						<div class="d-flex">
 							<h3 class="font-weight-semibold mb-0">
-								{{number_format(\App\knowledgeProduct::All()->count())}}</h3>
+								{{number_format(\App\KnowledgeProduct::All()->count())}}</h3>
 
 						</div>
 
 						<div>
 							{{__('app.dashboard_total_knowledge_product')}}
 							<div class="font-size-sm opacity-75">This Year :
-								{{number_format(\App\knowledgeProduct::All()->count())}}</div>
+								{{number_format(\App\KnowledgeProduct::All()->count())}}</div>
 						</div>
 					</div>
 
@@ -174,7 +174,7 @@
 						<div class="d-flex align-items-center mb-3 mb-sm-0">
 							<div id="campaigns-donut"></div>
 							<div class="ml-3">
-								<h5 class="font-weight-semibold mb-0">{{number_format(\App\knowledgeProduct::All()->count())}}</h5>
+								<h5 class="font-weight-semibold mb-0">{{number_format(\App\KnowledgeProduct::All()->count())}}</h5>
 								<span class="badge badge-mark border-success mr-1"></span> <span
 									class="text-muted">{{__('app.dashboard_total_knowledge_product')}}</span>
 							</div>

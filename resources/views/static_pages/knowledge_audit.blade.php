@@ -32,7 +32,7 @@ $company = App\Company::first();
 							<div class="col-sm-4 float-left">
 									<h5><b>Knowledge Products</b></h5>
 									<address>
-											Total Product: {{App\knowledgeProduct::count()}}<br>
+											Total Product: {{App\KnowledgeProduct::count()}}<br>
 									</address>
 								  </div>
 								  <!-- /.col -->
@@ -46,7 +46,7 @@ $company = App\Company::first();
 								  <div class="col-sm-4 float-left">
 									<h5><b>Statistics</b></h5>
 									<address>
-											Total Views: {{number_format(App\knowledgeProduct::all()->sum('views'))}}<br>
+											Total Views: {{number_format(App\KnowledgeProduct::all()->sum('views'))}}<br>
 											Total Contributor: {{App\User::All()->filter(function($user){
 												return $user->hasPermissionTo('manage knowledge');
 											})->count()}}<br>
@@ -107,11 +107,11 @@ $company = App\Company::first();
 								  </tr>
 								  <tr>
 									<th>Other Knowledge Products</th>
-									<td>{{App\knowledgeProduct::count() - App\Project::count()}}</td>
+									<td>{{App\KnowledgeProduct::count() - App\Project::count()}}</td>
 								  </tr>
 								  <tr>
 									<th>Total Knowledge Products:</th>
-									<td>{{App\knowledgeProduct::count()}}</td>
+									<td>{{App\KnowledgeProduct::count()}}</td>
 								  </tr>
 								</tbody></table>
 							  </div>
