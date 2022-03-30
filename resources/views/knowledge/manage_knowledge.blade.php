@@ -20,9 +20,9 @@
         <legend class="text-uppercase font-size-sm font-weight-bold">Knowledge Product Registration Form</legend>
     </div>   
     @if (!$new)
-        {!! Form::open(['action' => ['knowledgeProductController@update',$knowledge->id], 'method'=> 'POST', 'enctype'=>'multipart/form-data']) !!}
+        {!! Form::open(['action' => ['KnowledgeProductController@update',$knowledge->id], 'method'=> 'POST', 'enctype'=>'multipart/form-data']) !!}
     @else
-        {!! Form::open(['action' => ['knowledgeProductController@store'], 'method'=> 'POST','enctype'=>'multipart/form-data']) !!}
+        {!! Form::open(['action' => ['KnowledgeProductController@store'], 'method'=> 'POST','enctype'=>'multipart/form-data']) !!}
     @endif
     
         <div class="card-body p-0">

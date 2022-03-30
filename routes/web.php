@@ -90,7 +90,7 @@ Route::Resources([
 Route::get('FinanceTableData', 'FinanceController@tableData');
 Route::get('directorateTableData', 'directorateController@tableData');
 Route::get('projectTableData', 'ProjectController@tableData');
-Route::get('knowledgeTableData', 'knowledgeProductController@tableData');
+Route::get('knowledgeTableData', 'KnowledgeProductController@tableData');
 Route::get('documentTableData', 'DocumentController@tableData');
 Route::get('videoTableData', 'VideoController@tableData');
 Route::get('photoTableData', 'PhotoController@tableData');
