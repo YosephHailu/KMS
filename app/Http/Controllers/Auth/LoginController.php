@@ -44,6 +44,15 @@ class LoginController extends Controller
         return 'username';
     }
 
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/home');
+    }
+
     public function credentials(Request $request){
         $userStatus_active = UserStatus::firstOrCreate([
             'status' => 'active'
